@@ -1,0 +1,49 @@
+site_name: The Quokka Cookbook
+site_description: Quantum computing recipes you can actually run
+site_url: https://johnazariah.github.io/quokka-cookbook
+
+repo_url: https://github.com/johnazariah/quokka-cookbook
+repo_name: johnazariah/quokka-cookbook
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - admonitions
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Recipes:
+    - "01 — Bell State": recipes/01-bell-state/README.md
+    - "02 — Teleportation": recipes/02-teleportation/README.md
+    - "03 — Deutsch-Jozsa": recipes/03-deutsch-jozsa/README.md

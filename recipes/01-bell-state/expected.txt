@@ -1,0 +1,7 @@
+Expected output (exact simulation):
+{'00': 0.5, '11': 0.5}
+
+Expected output (1024 shots, approximate):
+{'00': ~512, '11': ~512}
+
+You should NEVER see '01' or '10'.
