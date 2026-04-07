@@ -1,0 +1,16 @@
+Expected output:
+
+The measurement result is always in the subspace orthogonal to s = 11.
+s · z = 0 mod 2 means z_0 XOR z_1 = 0, so valid outcomes are 00 and 11.
+
+Expected output (1024 shots, approximate):
+{'00': ~512, '11': ~512}
+
+You should NEVER see '01' or '10'.
+
+After collecting results, solve the linear system:
+- z = 11 gives the equation: s_0 XOR s_1 = 0, i.e., s_0 = s_1
+- Combined with s ≠ 00, this gives s = 11. ✓
+
+Multiple runs give independent samples from {00, 11}.
+With O(n) non-trivial samples, you can determine s by Gaussian elimination.

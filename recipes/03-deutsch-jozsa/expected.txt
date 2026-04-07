@@ -1,0 +1,15 @@
+Balanced oracle: f(x) = x0 XOR x1
+Expected output (exact): {'11': 1.0}
+Expected output (1024 shots): {'11': 1024}
+→ At least one bit is 1, so f is BALANCED. Correct!
+
+Constant oracle: f(x) = 0
+Expected output (exact): {'00': 1.0}
+Expected output (1024 shots): {'00': 1024}
+→ All bits are 0, so f is CONSTANT. Correct!
+
+Summary:
+- If ALL measured bits are 0 → f is constant
+- If ANY measured bit is 1 → f is balanced
+- The algorithm NEVER gives a wrong answer
+- A classical algorithm needs up to 2^(n-1) + 1 queries; this uses exactly 1

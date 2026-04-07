@@ -29,9 +29,9 @@ These recipes build your intuition for the three things that make quantum comput
 
 | Order | Recipe | Key concept |
 |-------|--------|-------------|
-| 4 | Bernstein-Vazirani | Querying a hidden structure with one question |
-| 5 | Simon's Problem | Exponential speedup from structure in a function |
-| 6 | Grover's Search (3 qubits) | Amplitude amplification — boosting the right answer |
+| 4 | [Bernstein-Vazirani](recipes/04-bernstein-vazirani/README.md) | Querying a hidden structure with one question |
+| 5 | [Simon's Problem](recipes/05-simons-problem/README.md) | Exponential speedup from structure in a function |
+| 6 | [Grover's Search](recipes/06-grovers-search/README.md) | Amplitude amplification — boosting the right answer |
 
 !!! note "After Stage 2 you'll understand"
     - How oracles encode problems into quantum circuits
@@ -46,9 +46,9 @@ These recipes build your intuition for the three things that make quantum comput
 
 | Order | Recipe | Key concept |
 |-------|--------|-------------|
-| 7 | QAOA for MaxCut | Variational optimization on a graph |
-| 8 | VQE for H₂ | Finding the ground-state energy of a molecule |
-| 9 | Quantum Fourier Transform | The engine behind phase estimation and Shor's algorithm |
+| 7 | [QAOA for MaxCut](recipes/07-qaoa-maxcut/README.md) | Variational optimization on a graph |
+| 8 | [VQE for H₂](recipes/08-vqe-h2/README.md) | Finding the ground-state energy of a molecule |
+| 9 | [Quantum Fourier Transform](recipes/09-quantum-fourier-transform/README.md) | The engine behind phase estimation and Shor's algorithm |
 
 !!! note "After Stage 3 you'll understand"
     - How hybrid classical-quantum algorithms work
@@ -63,9 +63,9 @@ These recipes build your intuition for the three things that make quantum comput
 
 | Order | Recipe | Key concept |
 |-------|--------|-------------|
-| 10 | Quantum Phase Estimation | Precision measurement of eigenvalues |
-| 11 | Error Mitigation (ZNE) | Making noisy results useful |
-| 12 | Quantum Counting | Combining Grover with QPE |
+| 10 | [Quantum Phase Estimation](recipes/10-quantum-phase-estimation/README.md) | Precision measurement of eigenvalues |
+| 11 | [Error Mitigation (ZNE)](recipes/11-error-mitigation-zne/README.md) | Making noisy results useful |
+| 12 | [Quantum Counting](recipes/12-quantum-counting/README.md) | Combining Grover with QPE |
 
 ---
 

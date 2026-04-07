@@ -1,0 +1,12 @@
+Expected output:
+
+Bob's qubit (c2) is ALWAYS 1, because we teleported |1⟩.
+
+Alice's two measurement results (c0, c1) are uniformly random —
+each of the four combinations (00, 01, 10, 11) appears ~25% of the time.
+
+Typical 1024-shot output (c2 c1 c0):
+{'1 0 0': ~256, '1 0 1': ~256, '1 1 0': ~256, '1 1 1': ~256}
+
+The key observation: c2 is 1 in EVERY shot.
+If you ever see c2 = 0, something is wrong.

@@ -46,14 +46,23 @@ plugins:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Recipes:
-    - Overview: recipes/index.md
-    - Appetizers:
-      - "01 — Bell State": recipes/01-bell-state/README.md
-      - "02 — Teleportation": recipes/02-teleportation/README.md
-      - "03 — Deutsch-Jozsa": recipes/03-deutsch-jozsa/README.md
-    - Mains: recipes/mains-coming-soon.md
-    - Desserts: recipes/desserts-coming-soon.md
+  - Recipes: recipes/index.md
+    # ── Unpublished — uncomment to launch individual recipes ──
+    # - Appetizers:
+    #   - "01 — Bell State": recipes/01-bell-state/README.md
+    #   - "02 — Teleportation": recipes/02-teleportation/README.md
+    #   - "03 — Deutsch-Jozsa": recipes/03-deutsch-jozsa/README.md
+    # - Mains:
+    #   - "04 — Bernstein-Vazirani": recipes/04-bernstein-vazirani/README.md
+    #   - "05 — Simon's Problem": recipes/05-simons-problem/README.md
+    #   - "06 — Grover's Search": recipes/06-grovers-search/README.md
+    #   - "07 — QAOA for MaxCut": recipes/07-qaoa-maxcut/README.md
+    #   - "08 — VQE for H₂": recipes/08-vqe-h2/README.md
+    #   - "09 — Quantum Fourier Transform": recipes/09-quantum-fourier-transform/README.md
+    # - Desserts:
+    #   - "10 — Quantum Phase Estimation": recipes/10-quantum-phase-estimation/README.md
+    #   - "11 — Error Mitigation (ZNE)": recipes/11-error-mitigation-zne/README.md
+    #   - "12 — Quantum Counting": recipes/12-quantum-counting/README.md
   - Learning Path: learning-path.md
   - References: references.md
   - About: about.md

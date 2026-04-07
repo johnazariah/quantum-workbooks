@@ -1,0 +1,17 @@
+Expected output (1024 shots, approximate):
+
+For the triangle graph, the maximum cut has value 2.
+There are 6 optimal cuts (any partition into 1 vs 2 nodes):
+  001, 010, 011, 100, 101, 110
+
+With p=1 and good parameters, QAOA produces these states
+with higher probability than the non-optimal states (000, 111).
+
+Typical output:
+{'001': ~150, '010': ~150, '011': ~150, '100': ~150, '101': ~150, '110': ~150, '000': ~37, '111': ~37}
+
+The 6 optimal states together get ~88% of the probability.
+The 2 non-optimal states (000 and 111) get ~12%.
+
+For this small instance, the expected cut value from QAOA
+is close to the optimal value of 2.

@@ -1,0 +1,14 @@
+Expected output (exact):
+{'101': ~0.945}  (94.5% probability)
+
+Expected output (1024 shots, approximate):
+{'101': ~968, others: ~56 total}
+
+With 3 qubits and 1 marked item, the optimal number of Grover
+iterations is floor(π/4 × √8) ≈ 2.
+
+After 2 iterations, the target state |101⟩ has ~94.5% probability.
+The remaining ~5.5% is spread across the other 7 states.
+
+A classical random search would find the target with probability 1/8
+per guess, requiring on average 8 guesses.

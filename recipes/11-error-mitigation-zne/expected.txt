@@ -1,0 +1,22 @@
+Expected output:
+
+This recipe demonstrates the CONCEPT of ZNE using three noise levels.
+The exact results depend on your hardware's noise characteristics.
+
+On a perfect simulator:
+  Scale 1: {'0': 1024}  → ⟨X⟩ = 1.0
+  Scale 3: {'0': 1024}  → ⟨X⟩ = 1.0
+  Scale 5: {'0': 1024}  → ⟨X⟩ = 1.0
+
+On noisy hardware (example with 1% depolarizing error per CNOT):
+  Scale 1: {'0': ~990, '1': ~34}   → ⟨X⟩ ≈ 0.93
+  Scale 3: {'0': ~945, '1': ~79}   → ⟨X⟩ ≈ 0.85
+  Scale 5: {'0': ~900, '1': ~124}  → ⟨X⟩ ≈ 0.76
+
+Linear extrapolation to λ=0:
+  ⟨X⟩₀ ≈ 0.93 + (0.93 - 0.85)/2 × 1 ≈ 0.97
+
+The extrapolated value (0.97) is closer to the ideal (1.0)
+than the raw measurement (0.93).
+
+Richardson extrapolation with all three points gives even better results.

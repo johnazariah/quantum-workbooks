@@ -1,0 +1,22 @@
+Expected output:
+
+With N=4 (2 search qubits) and M=1 (one marked item |11⟩),
+the Grover operator has eigenvalues e^(±2iθ) where sin²(θ) = M/N = 1/4,
+so θ = π/6.
+
+The phase φ = θ/π = 1/6 ≈ 0.1667.
+With 2 counting qubits (resolution 1/4), the nearest value is
+either 0/4 = 0 or 1/4 = 0.25.
+
+Expected output (1024 shots, approximate):
+{'01': ~750, '00': ~274}
+
+The dominant outcome '01' (decimal 1) gives φ ≈ 1/4 = 0.25,
+which corresponds to sin²(π × 0.25) = sin²(π/4) = 0.5.
+Estimate: M ≈ 0.5 × 4 = 2.
+
+The true answer is M = 1. With only 2 counting qubits, the precision
+is limited. More counting qubits give better estimates.
+
+With 3 counting qubits, you'd get φ ≈ 1/8 or 2/8,
+giving M ≈ 0.59 or M ≈ 2 — rounding to M = 1. ✓

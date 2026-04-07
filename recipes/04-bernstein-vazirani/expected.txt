@@ -1,0 +1,7 @@
+Expected output (exact): {'101': 1.0}
+Expected output (1024 shots): {'101': 1024}
+
+The hidden string s = 101 is recovered in a SINGLE query.
+A classical algorithm would need 3 queries (one per bit).
+
+The result is deterministic — you will ALWAYS get 101.
