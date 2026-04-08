@@ -2,7 +2,9 @@
 
 ## What you need
 
-1. **A Quokka** — either the [physical puck](https://www.quokkacomputing.com/product-page/quokka-puck) or the [Quokka app on iOS](https://apps.apple.com/au/app/quokka-quantum/id6754873585)
+1. **Access to a Quokka** — you have two options:
+    - **Own a Quokka puck?** Use the [iOS app](https://apps.apple.com/au/app/quokka-quantum/id6754873585) to connect to your puck and load circuits
+    - **Don't have one?** [Sign up at quokkacomputing.com](https://www.quokkacomputing.com/get-started) to access one of six online Quokkas through the web — no hardware needed
 2. **This repo** — for the recipes and explanations
 
 ## Set up
@@ -34,7 +36,7 @@ measure q[0] -> c[0];
 measure q[1] -> c[1];
 ```
 
-Copy this into your Quokka app (or load it onto your puck). Run it. You should see outcomes `00` and `11` with roughly equal probability — never `01` or `10`.
+Paste this into your Quokka — either via the iOS app connected to your puck, or through the [online interface](https://www.quokkacomputing.com/get-started). Run it. You should see outcomes `00` and `11` with roughly equal probability — never `01` or `10`.
 
 Congratulations, you just created an entangled pair of qubits. Now read the [full recipe](recipes/01-bell-state/README.md) to understand *why*.
 
