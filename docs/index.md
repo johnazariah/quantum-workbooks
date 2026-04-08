@@ -112,5 +112,19 @@ Recipes drop regularly. [Watch the repo on GitHub](https://github.com/johnazaria
 
 </div>
 
-Every `.qasm` file in this cookbook is a valid OpenQASM 2.0 program. If you want to go beyond Quokka, the same files run on IBM Quantum, Qiskit, or any other QASM-compatible platform. **Your learning is portable.**
+## Run the recipes — no hardware required
+
+You don't need a physical Quokka puck to follow along. [Sign up at quokkacomputing.com](https://www.quokkacomputing.com/) to get access to Quokka's online servers — paste in any `.qasm` file from this cookbook and run it in your browser.
+
+<!-- TODO: Update signup link and instructions once confirmed with the Quokka team -->
+
+!!! note "Don't have a Quokka yet?"
+    Every recipe is a standard OpenQASM 2.0 file. You can also run them for free on:
+
+    - **[IBM Quantum](https://quantum.ibm.com/)** — free account, paste QASM into the Composer, run on simulators or real 127-qubit hardware
+    - **[Quirk](https://algassert.com/quirk)** — instant drag-and-drop circuit simulator in the browser (no QASM paste, but great for visual intuition)
+
+    Your learning is portable. What you build here works everywhere.
+
+Every `.qasm` file in this cookbook is a valid OpenQASM 2.0 program. If you outgrow Quokka, the same files run on IBM Quantum, Qiskit, or any other QASM-compatible platform.
 

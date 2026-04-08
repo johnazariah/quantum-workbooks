@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <style>
+      .body { fill: #8B6914; }
+      .belly { fill: #D4A843; }
+      .ear-inner { fill: #E8C078; }
+      .nose { fill: #2D1B00; }
+      .eye { fill: #2D1B00; }
+      .mouth { fill: none; stroke: #2D1B00; stroke-width: 3; stroke-linecap: round; }
+      .hat { fill: #FFFFFF; }
+      .hat-band { fill: #009688; }
+      .whisker { fill: none; stroke: #6B4F1A; stroke-width: 2; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <!-- Ears (behind head) -->
+  <!-- Left ear -->
+  <ellipse class="body" cx="175" cy="165" rx="45" ry="60" transform="rotate(-20 175 165)"/>
+  <ellipse class="ear-inner" cx="175" cy="165" rx="30" ry="42" transform="rotate(-20 175 165)"/>
+  <!-- Right ear -->
+  <ellipse class="body" cx="337" cy="165" rx="45" ry="60" transform="rotate(20 337 165)"/>
+  <ellipse class="ear-inner" cx="337" cy="165" rx="30" ry="42" transform="rotate(20 337 165)"/>
+
+  <!-- Head -->
+  <ellipse class="body" cx="256" cy="270" rx="120" ry="130"/>
+
+  <!-- Belly / face lighter area -->
+  <ellipse class="belly" cx="256" cy="300" rx="85" ry="95"/>
+
+  <!-- Eyes -->
+  <ellipse class="eye" cx="218" cy="252" rx="12" ry="14"/>
+  <ellipse class="eye" cx="294" cy="252" rx="12" ry="14"/>
+  <!-- Eye highlights -->
+  <ellipse fill="#FFFFFF" cx="222" cy="247" rx="5" ry="5"/>
+  <ellipse fill="#FFFFFF" cx="298" cy="247" rx="5" ry="5"/>
+
+  <!-- Nose -->
+  <ellipse class="nose" cx="256" cy="295" rx="18" ry="13"/>
+  <!-- Nose highlight -->
+  <ellipse fill="#4A3520" cx="252" cy="292" rx="6" ry="4"/>
+
+  <!-- Mouth -->
+  <path class="mouth" d="M 240 310 Q 248 322 256 310 Q 264 322 272 310"/>
+
+  <!-- Whiskers -->
+  <line class="whisker" x1="190" y1="290" x2="145" y2="278"/>
+  <line class="whisker" x1="190" y1="300" x2="142" y2="300"/>
+  <line class="whisker" x1="190" y1="310" x2="145" y2="322"/>
+  <line class="whisker" x1="322" y1="290" x2="367" y2="278"/>
+  <line class="whisker" x1="322" y1="300" x2="370" y2="300"/>
+  <line class="whisker" x1="322" y1="310" x2="367" y2="322"/>
+
+  <!-- Chef's Hat -->
+  <!-- Hat brim -->
+  <ellipse class="hat" cx="256" cy="175" rx="105" ry="20"/>
+  <!-- Hat body -->
+  <rect class="hat" x="175" y="80" width="162" height="95" rx="10"/>
+  <!-- Hat puffs (the classic toque shape) -->
+  <circle class="hat" cx="210" cy="75" r="42"/>
+  <circle class="hat" cx="256" cy="65" r="45"/>
+  <circle class="hat" cx="302" cy="75" r="42"/>
+  <circle class="hat" cx="230" cy="60" r="35"/>
+  <circle class="hat" cx="282" cy="60" r="35"/>
+  <!-- Hat band -->
+  <rect class="hat-band" x="175" y="160" width="162" height="18" rx="4"/>
+
+  <!-- Quantum symbol on hat band: |ψ⟩ -->
+  <text x="256" y="175" text-anchor="middle" font-family="serif" font-style="italic" font-size="16" fill="#FFFFFF">|ψ⟩</text>
+
+  <!-- Small body hint at bottom -->
+  <ellipse class="body" cx="256" cy="430" rx="90" ry="70"/>
+  <ellipse class="belly" cx="256" cy="435" rx="65" ry="52"/>
+
+  <!-- Paws holding a circuit -->
+  <!-- Left paw -->
+  <ellipse class="body" cx="180" cy="410" rx="30" ry="20" transform="rotate(25 180 410)"/>
+  <!-- Right paw -->
+  <ellipse class="body" cx="332" cy="410" rx="30" ry="20" transform="rotate(-25 332 410)"/>
+
+  <!-- Tiny circuit diagram between paws -->
+  <line stroke="#2D1B00" stroke-width="2" x1="205" y1="415" x2="310" y2="415"/>
+  <line stroke="#2D1B00" stroke-width="2" x1="205" y1="435" x2="310" y2="435"/>
+  <!-- H gate box -->
+  <rect fill="#E0F2F1" stroke="#009688" stroke-width="2" x="215" y="405" width="20" height="20" rx="2"/>
+  <text x="225" y="419" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="12" fill="#009688">H</text>
+  <!-- CNOT -->
+  <circle fill="#009688" cx="260" cy="415" r="5"/>
+  <line stroke="#009688" stroke-width="2" x1="260" y1="415" x2="260" y2="435"/>
+  <circle fill="none" stroke="#009688" stroke-width="2" cx="260" cy="435" r="7"/>
+  <line stroke="#009688" stroke-width="2" x1="253" y1="435" x2="267" y2="435"/>
+  <line stroke="#009688" stroke-width="2" x1="260" y1="428" x2="260" y2="442"/>
+  <!-- Measurement -->
+  <rect fill="#E0F2F1" stroke="#009688" stroke-width="2" x="283" y="405" width="20" height="20" rx="2"/>
+  <path fill="none" stroke="#009688" stroke-width="1.5" d="M 288 420 Q 293 408 298 420"/>
+  <line stroke="#009688" stroke-width="1.5" x1="293" y1="410" x2="297" y2="418"/>
+</svg>
