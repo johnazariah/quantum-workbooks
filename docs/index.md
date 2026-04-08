@@ -114,9 +114,7 @@ Recipes drop regularly. [Watch the repo on GitHub](https://github.com/johnazaria
 
 ## Run the recipes — no hardware required
 
-You don't need to own a Quokka puck to follow along. [Sign up at quokkacomputing.com](https://www.quokkacomputing.com/get-started) to access one of six online Quokkas — paste in any `.qasm` file from this cookbook and run it through the web.
-
-<!-- TODO: Update instructions once confirmed with the Quokka team -->
+You don't need to own a Quokka puck. [Sign up at quokkacomputing.com](https://www.quokkacomputing.com/get-started) to get a Google Colab notebook that connects to one of six cloud Quokkas — paste in any `.qasm` file from this cookbook, run the cell, and see the results.
 
 !!! note "Other ways to run QASM"
     Every recipe is a standard OpenQASM 2.0 file. You can also run them for free on:
