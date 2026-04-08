@@ -6,7 +6,7 @@ A collection of quantum computing recipes — self-contained, problem-first, and
 
 ## Who made this?
 
-[John Azariah](https://github.com/johnazariah) — quantum computing researcher, author of *Qubit-Efficient Encodings for Binary Optimisation Problems*, and someone who got tired of watching smart people bounce off quantum computing because the teaching order is wrong.
+[John Azariah](https://github.com/johnazariah) — quantum computing student, one of the inventors of the Q# programming language, and someone who struggled with intuition and application of quantum algorithms because he was always bogged down in the maths.
 
 ## The teaching philosophy
 
