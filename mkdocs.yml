@@ -1,10 +1,11 @@
 site_name: The Quokka Cookbook
 site_description: Quantum computing recipes you can actually run
 site_author: John Azariah
-site_url: https://johnazariah.github.io/quokka-cookbook
+site_url: https://johnazariah.github.io/quantum-workbooks
 
-repo_name: johnazariah/quokka-cookbook
-repo_url: https://github.com/johnazariah/quokka-cookbook
+repo_name: johnazariah/quantum-workbooks
+repo_url: https://github.com/johnazariah/quantum-workbooks
+docs_dir: cookbook/docs
 
 theme:
   name: material
@@ -98,6 +99,6 @@ extra_javascript:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/johnazariah/quokka-cookbook
+      link: https://github.com/johnazariah/quantum-workbooks
 
 copyright: Copyright &copy; 2026 John Azariah

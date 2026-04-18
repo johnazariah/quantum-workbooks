@@ -30,9 +30,9 @@ Quokka is built by [Eigensystems](https://www.quokkacomputing.com/) in Australia
 
 This is an open-source project. If you find a bug, want to improve an explanation, or have an idea for a new recipe:
 
-- **Bug or typo?** Open an [issue](https://github.com/johnazariah/quokka-cookbook/issues)
-- **New recipe?** Open a [pull request](https://github.com/johnazariah/quokka-cookbook/pulls) following the recipe template
-- **Question?** Start a [discussion](https://github.com/johnazariah/quokka-cookbook/discussions)
+- **Bug or typo?** Open an [issue](https://github.com/johnazariah/quantum-workbooks/issues)
+- **New recipe?** Open a [pull request](https://github.com/johnazariah/quantum-workbooks/pulls) following the recipe template
+- **Question?** Start a [discussion](https://github.com/johnazariah/quantum-workbooks/discussions)
 
 ## License
 

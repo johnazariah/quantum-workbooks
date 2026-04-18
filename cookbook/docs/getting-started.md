@@ -24,8 +24,8 @@ They may occasionally go offline due to power or network conditions — if one i
 **Option B: Clone the repo locally**
 
 ```bash
-git clone https://github.com/johnazariah/quokka-cookbook
-cd quokka-cookbook
+git clone https://github.com/johnazariah/quantum-workbooks
+cd quantum-workbooks/cookbook
 ```
 
 Browse the recipes, read the explanations, and copy the `.qasm` code into your Quokka Colab notebook or iOS app when you're ready to run.

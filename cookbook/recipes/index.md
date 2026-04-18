@@ -2,7 +2,7 @@
 
 All recipes in one place. Each one is self-contained — pick whatever interests you, or follow the [Learning Path](../learning-path.md) for a structured progression.
 
-New recipes drop regularly. [Watch the repo](https://github.com/johnazariah/quokka-cookbook) to get notified.
+New recipes drop regularly. [Watch the repo](https://github.com/johnazariah/quantum-workbooks) to get notified.
 
 ---
 

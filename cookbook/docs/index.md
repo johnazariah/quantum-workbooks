@@ -74,7 +74,7 @@ No physics degree required. We introduce every concept when it's needed, in the 
 
 ## Stay in the loop
 
-Recipes drop regularly. [Watch the repo on GitHub](https://github.com/johnazariah/quokka-cookbook) to get notified, or check back here.
+Recipes drop regularly. [Watch the repo on GitHub](https://github.com/johnazariah/quantum-workbooks) to get notified, or check back here.
 
 <div class="grid cards" markdown>
 
@@ -100,7 +100,7 @@ Recipes drop regularly. [Watch the repo on GitHub](https://github.com/johnazaria
 
     Found a typo? Want to suggest a recipe? Every recipe is a PR away.
 
-    [:octicons-arrow-right-24: GitHub](https://github.com/johnazariah/quokka-cookbook)
+    [:octicons-arrow-right-24: GitHub](https://github.com/johnazariah/quantum-workbooks)
 
 -   :material-cube-outline:{ .lg .middle } **Get a Quokka**
 
