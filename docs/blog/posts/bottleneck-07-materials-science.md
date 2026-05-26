@@ -1,5 +1,5 @@
 ---
-date: 2026-05-26
+date: 2026-08-19
 categories:
   - The Quantum Bottleneck
   - Materials Science

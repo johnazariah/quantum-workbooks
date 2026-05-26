@@ -1,5 +1,5 @@
 ---
-date: 2026-05-26
+date: 2026-06-24
 categories:
   - The Quantum Bottleneck
   - Drug Discovery
