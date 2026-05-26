@@ -1,11 +1,11 @@
-site_name: The Quokka Cookbook
-site_description: Quantum computing recipes you can actually run
+site_name: Quantum Workbooks
+site_description: Quantum computing — explained through problems, built as circuits, run for real
 site_author: John Azariah
 site_url: https://johnazariah.github.io/quantum-workbooks
 
 repo_name: johnazariah/quantum-workbooks
 repo_url: https://github.com/johnazariah/quantum-workbooks
-docs_dir: cookbook/docs
+docs_dir: docs
 
 theme:
   name: material
@@ -43,31 +43,35 @@ theme:
 
 plugins:
   - search
+  - blog:
+      blog_dir: blog
+      post_date_format: long
 
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
-  - Learning Path: learning-path.md
+  - Quokka Cookbook:
+    - Getting Started: getting-started.md
+    - Learning Path: learning-path.md
+    - Appetizers:
+      - "01 — Bell State": recipes/01-bell-state/README.md
+      - "02 — Teleportation": recipes/02-teleportation/README.md
+      - "03 — Deutsch-Jozsa": recipes/03-deutsch-jozsa/README.md
+    - Mains:
+      - "04 — Bernstein-Vazirani": recipes/04-bernstein-vazirani/README.md
+      - "05 — Simon's Problem": recipes/05-simons-problem/README.md
+      - "06 — Grover's Search": recipes/06-grovers-search/README.md
+      - "07 — QAOA for MaxCut": recipes/07-qaoa-maxcut/README.md
+      - "08 — VQE for H₂": recipes/08-vqe-h2/README.md
+      - "09 — Quantum Fourier Transform": recipes/09-quantum-fourier-transform/README.md
+    - Desserts:
+      - "10 — Quantum Phase Estimation": recipes/10-quantum-phase-estimation/README.md
+      - "11 — Error Mitigation (ZNE)": recipes/11-error-mitigation-zne/README.md
+      - "12 — Quantum Counting": recipes/12-quantum-counting/README.md
+  - The Quantum Bottleneck:
+    - Companion Notebooks: bottleneck/index.md
+  - Blog: blog/index.md
   - References: references.md
   - About: about.md
-  # ── Recipes — uncomment one at a time as they're published ──
-  # - Recipes:
-  #   - Overview: recipes/index.md
-  #   - Appetizers:
-  #     - "01 — Bell State": recipes/01-bell-state/README.md
-  #     - "02 — Teleportation": recipes/02-teleportation/README.md
-  #     - "03 — Deutsch-Jozsa": recipes/03-deutsch-jozsa/README.md
-  #   - Mains:
-  #     - "04 — Bernstein-Vazirani": recipes/04-bernstein-vazirani/README.md
-  #     - "05 — Simon's Problem": recipes/05-simons-problem/README.md
-  #     - "06 — Grover's Search": recipes/06-grovers-search/README.md
-  #     - "07 — QAOA for MaxCut": recipes/07-qaoa-maxcut/README.md
-  #     - "08 — VQE for H₂": recipes/08-vqe-h2/README.md
-  #     - "09 — Quantum Fourier Transform": recipes/09-quantum-fourier-transform/README.md
-  #   - Desserts:
-  #     - "10 — Quantum Phase Estimation": recipes/10-quantum-phase-estimation/README.md
-  #     - "11 — Error Mitigation (ZNE)": recipes/11-error-mitigation-zne/README.md
-  #     - "12 — Quantum Counting": recipes/12-quantum-counting/README.md
 
 markdown_extensions:
   - admonition
