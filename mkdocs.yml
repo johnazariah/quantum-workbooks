@@ -49,29 +49,6 @@ plugins:
 
 nav:
   - Home: index.md
-  - Circuit Bench:
-    - Overview: circuit-bench/index.md
-    - Getting Started: getting-started.md
-    - Learning Path: learning-path.md
-    - Foundations:
-      - "00 — Reading a Quantum Circuit": circuit-bench/00-reading-a-quantum-circuit/README.md
-      - "01 — Bell State": circuit-bench/01-bell-state/README.md
-      - "02 — Teleportation": circuit-bench/02-teleportation/README.md
-      - "03 — Deutsch-Jozsa": circuit-bench/03-deutsch-jozsa/README.md
-    - Algorithms and Applications:
-      - "04 — Bernstein-Vazirani": circuit-bench/04-bernstein-vazirani/README.md
-      - "05 — Simon's Problem": circuit-bench/05-simons-problem/README.md
-      - "06 — Grover's Search": circuit-bench/06-grovers-search/README.md
-      - "07 — QAOA for MaxCut": circuit-bench/07-qaoa-maxcut/README.md
-      - "08 — VQE for H₂": circuit-bench/08-vqe-h2/README.md
-      - "09 — Quantum Fourier Transform": circuit-bench/09-quantum-fourier-transform/README.md
-    - Advanced Techniques:
-      - "10 — Quantum Phase Estimation": circuit-bench/10-quantum-phase-estimation/README.md
-      - "11 — Error Mitigation (ZNE)": circuit-bench/11-error-mitigation-zne/README.md
-      - "12 — Quantum Counting": circuit-bench/12-quantum-counting/README.md
-  - The Quantum Bottleneck:
-    - Companion Notebooks: bottleneck/index.md
-  - References: references.md
   - About: about.md
 
 markdown_extensions:
