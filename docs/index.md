@@ -23,4 +23,15 @@ The linear algebra behind quantum computing and machine learning. Each post buil
 
 ### From Saturday to Co-Author
 
-A ten-part series on the [main blog](https://johnazariah.github.io/tags/from-saturday-to-coauthor/) documenting the journey from learning QAOA on a Saturday morning to co-authoring a quantum computing paper, written in Julia and grounded in functional programming.
+How a functional programmer went from "what is QAOA?" on a Saturday morning to co-author on a quantum computing paper, eight weeks later. Written in Julia and grounded in functional programming.
+
+1. [Saturday](https://johnazariah.github.io/2026/05/29/saturday-to-coauthor-01-saturday.html)
+2. [The Fold Under the Tree](https://johnazariah.github.io/2026/06/01/saturday-to-coauthor-02-the-fold-under-the-tree.html)
+3. [Three Gradients in One Codebase](https://johnazariah.github.io/2026/06/04/saturday-to-coauthor-03-three-gradients-in-one-codebase.html)
+4. [The Walls](https://johnazariah.github.io/2026/06/08/saturday-to-coauthor-04-the-walls.html)
+5. [The Algebra That Runs Itself](https://johnazariah.github.io/2026/06/11/saturday-to-coauthor-05-the-algebra-that-runs-itself.html)
+6. [Eighteen Hundred Reasons](https://johnazariah.github.io/2026/06/15/saturday-to-coauthor-06-eighteen-hundred-reasons.html)
+7. [Learning from the Masters](https://johnazariah.github.io/2026/06/18/saturday-to-coauthor-07-learning-from-the-masters.html)
+8. [Fourteen](https://johnazariah.github.io/2026/06/22/saturday-to-coauthor-08-fourteen.html)
+9. [The Collaborator That Never Sleeps](https://johnazariah.github.io/2026/06/25/saturday-to-coauthor-09-the-collaborator-that-never-sleeps.html)
+10. [What Language Taught Us About Mathematics](https://johnazariah.github.io/2026/06/29/saturday-to-coauthor-10-what-language-taught-us-about-mathematics.html)
