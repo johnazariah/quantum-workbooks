@@ -1,8 +1,8 @@
-# Recipe 12: Quantum Counting
+# Circuit Bench 12: Quantum Counting
 
 ## What are we making?
 
-An algorithm that **counts the number of solutions** to a search problem — without finding them. Given the same oracle from Grover's search (Recipe 06), quantum counting tells you *how many* items match, using QPE (Recipe 10) on the Grover operator.
+An algorithm that **counts the number of solutions** to a search problem — without finding them. Given the same oracle from Grover's search (Circuit Bench 06), quantum counting tells you *how many* items match, using QPE (Circuit Bench 10) on the Grover operator.
 
 This is the grand finale of the cookbook: it combines everything we've built. Grover's oracle defines the problem. The Grover operator encodes the answer in its eigenvalues. QPE extracts the eigenvalue. And the QFT (inside QPE) provides the precision.
 
@@ -17,7 +17,7 @@ This is the grand finale of the cookbook: it combines everything we've built. Gr
 - SWAP gate (`swap`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 06 — Grover's Search](../06-grovers-search/README.md) and [Recipe 10 — QPE](../10-quantum-phase-estimation/README.md).
+**Prerequisites:** [Circuit Bench 06 — Grover's Search](../06-grovers-search/README.md) and [Circuit Bench 10 — QPE](../10-quantum-phase-estimation/README.md).
 
 ## Background: why count instead of search?
 
@@ -189,12 +189,12 @@ This isn't exact ($M = 1$, not 2) — we only have 2 counting qubits! With 3 cou
 
     Quantum counting is the capstone that ties together three earlier recipes:
 
-    | Component | Recipe | Role in Quantum Counting |
+    | Component | Circuit Bench | Role in Quantum Counting |
     |:---|:---|:---|
-    | Grover operator | Recipe 06 | The unitary whose eigenvalue encodes $M$ |
-    | QFT | Recipe 09 | The final step of QPE (inverse QFT) |
-    | QPE | Recipe 10 | The framework that extracts the eigenvalue |
-    | Quantum Counting | Recipe 12 | The full algorithm |
+    | Grover operator | Circuit Bench 06 | The unitary whose eigenvalue encodes $M$ |
+    | QFT | Circuit Bench 09 | The final step of QPE (inverse QFT) |
+    | QPE | Circuit Bench 10 | The framework that extracts the eigenvalue |
+    | Quantum Counting | Circuit Bench 12 | The full algorithm |
 
     The composition: QPE wraps the Grover operator, using the inverse QFT to read out $\theta$. The angular resolution is set by the number of counting qubits. The answer gives $M = N\sin^2(\theta)$.
 

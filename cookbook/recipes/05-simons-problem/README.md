@@ -1,4 +1,4 @@
-# Recipe 05: Simon's Problem
+# Circuit Bench 05: Simon's Problem
 
 ## What are we making?
 
@@ -13,7 +13,7 @@ Classically, this requires $\Omega(2^{n/2})$ queries (birthday paradox). Simon's
 - CNOT gates (`cx`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 04 — Bernstein-Vazirani](../04-bernstein-vazirani/README.md). You should understand Fourier sampling and the inner-product oracle.
+**Prerequisites:** [Circuit Bench 04 — Bernstein-Vazirani](../04-bernstein-vazirani/README.md). You should understand Fourier sampling and the inner-product oracle.
 
 ## Background: hidden periods
 
@@ -201,7 +201,7 @@ From the non-trivial sample $z = 11$: $s_0 \oplus s_1 = 0 \Rightarrow s = 11$. �
 
     For Shor's: $G = \mathbb{Z}_N$, the Fourier transform is the QFT, and $H^\perp$ gives multiples of $N/r$ (from which $r$ can be extracted via continued fractions).
 
-    The transition from Simon to Shor is essentially: replace $\mathbb{Z}_2^n$ with $\mathbb{Z}_N$. We'll build the QFT in Recipe 09.
+    The transition from Simon to Shor is essentially: replace $\mathbb{Z}_2^n$ with $\mathbb{Z}_N$. We'll build the QFT in Circuit Bench 09.
 
 ??? abstract "Gaussian elimination over $\mathbb{F}_2$"
 
@@ -227,4 +227,4 @@ From the non-trivial sample $z = 11$: $s_0 \oplus s_1 = 0 \Rightarrow s = 11$. �
 
 - **Building the oracle is non-trivial.** For our 2-bit example, the oracle is simple. For general $n$-bit periods, constructing the oracle circuit is itself a design challenge. In the theoretical setting, the oracle is given as a black box.
 
-- **If you liked this, try:** Recipe 06 (Grover's Search) takes a completely different approach — amplitude amplification rather than Fourier sampling — to achieve a quadratic speedup on unstructured search. Recipe 09 (QFT) builds the Fourier transform over $\mathbb{Z}_N$ that generalises the Hadamard-based approach used here.
+- **If you liked this, try:** Circuit Bench 06 (Grover's Search) takes a completely different approach — amplitude amplification rather than Fourier sampling — to achieve a quadratic speedup on unstructured search. Circuit Bench 09 (QFT) builds the Fourier transform over $\mathbb{Z}_N$ that generalises the Hadamard-based approach used here.

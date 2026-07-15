@@ -1,18 +1,27 @@
 Expected output:
 
-QFT on |5⟩ = |101⟩ produces a uniform superposition with phase structure.
-All 8 basis states appear with EQUAL probability (1/8 each).
+The QFT on |5> = |101> produces equal measurement probabilities
+with non-trivial phase structure.
 
-Expected output (1024 shots, approximate):
-{'000': ~128, '001': ~128, '010': ~128, '011': ~128,
- '100': ~128, '101': ~128, '110': ~128, '111': ~128}
+Expected output for 1024 shots, approximately:
 
-This is because the QFT of a computational basis state |k⟩ is:
-  (1/√N) Σⱼ exp(2πi·k·j/N) |j⟩
+000: about 128
+001: about 128
+010: about 128
+011: about 128
+100: about 128
+101: about 128
+110: about 128
+111: about 128
 
-Every output state has amplitude 1/√8, so probability 1/8.
-The phases differ but are not visible in Z-basis measurement.
+The QFT of a computational-basis state |k> is:
 
-The QFT is interesting not for what it produces alone,
-but as the key subroutine in phase estimation, Shor's algorithm,
-and quantum counting.
+  (1/sqrt(N)) sum_j exp(2*pi*i*k*j/N) |j>
+
+Every output basis state has amplitude magnitude 1/sqrt(8), so every
+output probability is 1/8. The phases differ, but direct Z-basis
+measurement does not show them.
+
+The QFT is useful as a subroutine in phase estimation, Shor's
+algorithm, and quantum counting, where later interference converts
+phase information into measurable bit strings.

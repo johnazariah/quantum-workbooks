@@ -1,4 +1,4 @@
-# Recipe 02: Quantum Teleportation
+# Circuit Bench 02: Quantum Teleportation
 
 ## What are we making?
 
@@ -16,7 +16,7 @@ This isn't science fiction — it's the backbone of quantum networking, quantum 
 - Classical-controlled operations (`if`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 01 — Bell State](../01-bell-state/README.md). You should understand entanglement and the Bell state $|\Phi^+\rangle$.
+**Prerequisites:** [Circuit Bench 01 — Bell State](../01-bell-state/README.md). You should understand entanglement and the Bell state $|\Phi^+\rangle$.
 
 ## Background: why can't Alice just copy the qubit?
 
@@ -53,7 +53,7 @@ h q[1];
 cx q[1], q[2];
 ```
 
-This puts `q[1]` (Alice's half) and `q[2]` (Bob's half) into the Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$, exactly as in Recipe 01.
+This puts `q[1]` (Alice's half) and `q[2]` (Bob's half) into the Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$, exactly as in Circuit Bench 01.
 
 The full state is now:
 
@@ -269,4 +269,4 @@ The last bit (Bob's) is always `1`. The first two bits (Alice's) are uniformly r
 
 - **Teleportation in the real world.** Teleportation has been demonstrated over 1,400 km via satellite (Micius, 2017) and across metropolitan fiber networks. It's the building block of a future quantum internet.
 
-- **If you liked this, try:** Recipe 03 (Deutsch-Jozsa) uses the same Hadamard + entanglement tools but for a different purpose: solving a problem faster than any classical algorithm. Recipe 04 (Bernstein-Vazirani) extends the same pattern to discover hidden structure.
+- **If you liked this, try:** Circuit Bench 03 (Deutsch-Jozsa) uses the same Hadamard + entanglement tools but for a different purpose: solving a problem faster than any classical algorithm. Circuit Bench 04 (Bernstein-Vazirani) extends the same pattern to discover hidden structure.

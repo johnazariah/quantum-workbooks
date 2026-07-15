@@ -143,8 +143,8 @@ class CircuitDrawer:
         print(f'  saved {path}')
 
 
-# ── Recipe 01 ──
-print('Recipe 01: Bell State')
+# ── Circuit Bench 01 ──
+print('Circuit Bench 01: Bell State')
 d = CircuitDrawer(2, 4)
 d.gate(0, 0, 'H')
 d.cnot(0, 1, 1)
@@ -152,8 +152,8 @@ d.measure(0, 2)
 d.measure(1, 3)
 d.save('circuit.png', '01-bell-state')
 
-# ── Recipe 02 ──
-print('Recipe 02: Teleportation')
+# ── Circuit Bench 02 ──
+print('Circuit Bench 02: Teleportation')
 d = CircuitDrawer(3, 10)
 d.gate(0, 0, 'X', color='#D94A4A')
 d.barrier(0.7)
@@ -174,8 +174,8 @@ d.ax.annotate('', xy=(d._x(8), d._y(2)-0.25), xytext=(d._x(5), d._y(0)-0.25),
              arrowprops=dict(arrowstyle='->', color='#999999', lw=0.8, ls='--'))
 d.save('circuit.png', '02-teleportation')
 
-# ── Recipe 03 (balanced) ──
-print('Recipe 03: Deutsch-Jozsa (balanced)')
+# ── Circuit Bench 03 (balanced) ──
+print('Circuit Bench 03: Deutsch-Jozsa (balanced)')
 d = CircuitDrawer(3, 7)
 d.gate(2, 0, 'X', color='#D94A4A')
 d.gate(0, 1, 'H'); d.gate(1, 1, 'H'); d.gate(2, 1, 'H')
@@ -187,8 +187,8 @@ d.gate(0, 4, 'H'); d.gate(1, 4, 'H')
 d.measure(0, 5); d.measure(1, 6)
 d.save('circuit_balanced.png', '03-deutsch-jozsa')
 
-# ── Recipe 03 (constant) ──
-print('Recipe 03: Deutsch-Jozsa (constant)')
+# ── Circuit Bench 03 (constant) ──
+print('Circuit Bench 03: Deutsch-Jozsa (constant)')
 d = CircuitDrawer(3, 6)
 d.gate(2, 0, 'X', color='#D94A4A')
 d.gate(0, 1, 'H'); d.gate(1, 1, 'H'); d.gate(2, 1, 'H')
@@ -198,8 +198,8 @@ d.gate(0, 3, 'H'); d.gate(1, 3, 'H')
 d.measure(0, 4); d.measure(1, 5)
 d.save('circuit_constant.png', '03-deutsch-jozsa')
 
-# ── Recipe 04 ──
-print('Recipe 04: Bernstein-Vazirani')
+# ── Circuit Bench 04 ──
+print('Circuit Bench 04: Bernstein-Vazirani')
 d = CircuitDrawer(4, 8)
 d.gate(3, 0, 'X', color='#D94A4A')
 d.gate(0, 1, 'H'); d.gate(1, 1, 'H'); d.gate(2, 1, 'H'); d.gate(3, 1, 'H')
@@ -210,8 +210,8 @@ d.gate(0, 4, 'H'); d.gate(1, 4, 'H'); d.gate(2, 4, 'H')
 d.measure(0, 5); d.measure(1, 6); d.measure(2, 7)
 d.save('circuit.png', '04-bernstein-vazirani')
 
-# ── Recipe 05 ──
-print("Recipe 05: Simon's Problem")
+# ── Circuit Bench 05 ──
+print("Circuit Bench 05: Simon's Problem")
 d = CircuitDrawer(4, 9)
 d.gate(0, 0, 'H'); d.gate(1, 0, 'H')
 d.barrier(0.7, label='Oracle: s=11')
@@ -221,8 +221,8 @@ d.gate(0, 5, 'H'); d.gate(1, 5, 'H')
 d.measure(0, 7); d.measure(1, 8)
 d.save('circuit.png', '05-simons-problem')
 
-# ── Recipe 06 ──
-print("Recipe 06: Grover's Search")
+# ── Circuit Bench 06 ──
+print("Circuit Bench 06: Grover's Search")
 d = CircuitDrawer(3, 15, figscale=0.5)
 d.gate(0, 0, 'H'); d.gate(1, 0, 'H'); d.gate(2, 0, 'H')
 for offset in [0, 7]:
@@ -238,8 +238,8 @@ for offset in [0, 7]:
 d.measure(0, 14); d.measure(1, 14); d.measure(2, 14)
 d.save('circuit.png', '06-grovers-search')
 
-# ── Recipe 07 ──
-print('Recipe 07: QAOA for MaxCut')
+# ── Circuit Bench 07 ──
+print('Circuit Bench 07: QAOA for MaxCut')
 d = CircuitDrawer(3, 12, figscale=0.5)
 d.gate(0, 0, 'H'); d.gate(1, 0, 'H'); d.gate(2, 0, 'H')
 d.barrier(0.7, label='Problem U(γ)')
@@ -251,8 +251,8 @@ d.gate2(0, 10, 'Rx', color='#E67E22'); d.gate2(1, 10, 'Rx', color='#E67E22'); d.
 d.measure(0, 11); d.measure(1, 11); d.measure(2, 11)
 d.save('circuit.png', '07-qaoa-maxcut')
 
-# ── Recipe 08 ──
-print('Recipe 08: VQE for H₂')
+# ── Circuit Bench 08 ──
+print('Circuit Bench 08: VQE for H₂')
 d = CircuitDrawer(2, 7)
 d.gate(0, 0, 'X', color='#D94A4A')
 d.barrier(0.7, label='Ansatz')
@@ -264,8 +264,8 @@ d.barrier(4.7)
 d.measure(0, 5); d.measure(1, 6)
 d.save('circuit.png', '08-vqe-h2')
 
-# ── Recipe 09 ──
-print('Recipe 09: QFT')
+# ── Circuit Bench 09 ──
+print('Circuit Bench 09: QFT')
 d = CircuitDrawer(3, 10)
 d.gate(0, 0, 'X', color='#D94A4A'); d.gate(2, 0, 'X', color='#D94A4A')
 d.barrier(0.7, label='QFT')
@@ -279,8 +279,8 @@ d.barrier(7.7)
 d.measure(0, 8); d.measure(1, 8); d.measure(2, 9)
 d.save('circuit.png', '09-quantum-fourier-transform')
 
-# ── Recipe 10 ──
-print('Recipe 10: QPE')
+# ── Circuit Bench 10 ──
+print('Circuit Bench 10: QPE')
 d = CircuitDrawer(4, 13, figscale=0.5)
 d.gate(3, 0, 'X', color='#D94A4A')
 d.gate(0, 1, 'H'); d.gate(1, 1, 'H'); d.gate(2, 1, 'H')
@@ -297,8 +297,8 @@ d.gate(2, 11, 'H')
 d.measure(0, 12); d.measure(1, 12); d.measure(2, 12)
 d.save('circuit.png', '10-quantum-phase-estimation')
 
-# ── Recipe 11 ──
-print('Recipe 11: ZNE')
+# ── Circuit Bench 11 ──
+print('Circuit Bench 11: ZNE')
 d = CircuitDrawer(2, 8)
 d.gate(0, 0, 'H')
 d.barrier(0.7, label='Noise amplification (λ=3)')
@@ -308,8 +308,8 @@ d.gate(0, 5, 'H')
 d.measure(0, 6)
 d.save('circuit.png', '11-error-mitigation-zne')
 
-# ── Recipe 12 ──
-print('Recipe 12: Quantum Counting')
+# ── Circuit Bench 12 ──
+print('Circuit Bench 12: Quantum Counting')
 d = CircuitDrawer(4, 11, figscale=0.5)
 d.gate(0, 0, 'H'); d.gate(1, 0, 'H'); d.gate(2, 0, 'H'); d.gate(3, 0, 'H')
 d.barrier(0.7, label='Ctrl-G¹')

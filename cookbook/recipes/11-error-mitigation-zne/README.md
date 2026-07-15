@@ -1,4 +1,4 @@
-# Recipe 11: Error Mitigation (ZNE)
+# Circuit Bench 11: Error Mitigation (ZNE)
 
 ## What are we making?
 
@@ -14,7 +14,7 @@ This isn't error *correction* (which requires massive overhead). It's error *mit
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 - Basic arithmetic (for the extrapolation)
 
-**Prerequisites:** Any earlier recipe. This technique applies to any quantum circuit.
+**Prerequisites:** Any earlier Circuit Bench note. This technique applies to any quantum circuit.
 
 ## Background: the noise problem
 
@@ -124,8 +124,8 @@ Run all three circuits on your Quokka. On a **perfect simulator**, all three giv
 
 Both are closer to the ideal ($1.0$) than the raw $0.89$. Not perfect — but you got a better answer without any hardware improvements.
 
-!!! tip "Apply this to any recipe"
-    ZNE works on any circuit. To mitigate Recipe 01 (Bell State), for example, replace the CNOT with three CNOTs (CX·CX·CX = CX) for $\lambda = 3$, and five for $\lambda = 5$. Then extrapolate the correlation measurement.
+!!! tip "Apply this to any circuit note"
+    ZNE works on any circuit. To mitigate Circuit Bench 01 (Bell State), for example, replace the CNOT with three CNOTs (CX·CX·CX = CX) for $\lambda = 3$, and five for $\lambda = 5$. Then extrapolate the correlation measurement.
 
 ## Deep dive
 
@@ -203,10 +203,10 @@ Both are closer to the ideal ($1.0$) than the raw $0.89$. Not perfect — but yo
 
 ## Chef's notes
 
-- **This is the most practical recipe in the cookbook.** Every other recipe assumes perfect execution. This one deals with reality. If you're running on real hardware, ZNE is your first line of defense.
+- **This is the most practical Circuit Bench note.** Most other notes assume near-perfect execution. This one deals with reality. If you're running on real hardware, ZNE is your first line of defense.
 
 - **The circuits are intentionally simple.** We use a 1-qubit circuit to illustrate the concept clearly. On a real problem, you'd apply ZNE to your actual algorithm circuit (Grover, VQE, QAOA) by inserting identity-gate pairs around the critical gates.
 
 - **On a simulator, all three circuits give the same result.** ZNE is invisible on a perfect simulator. You need actual hardware noise (or a noise model) to see the benefit.
 
-- **If you liked this, try:** Recipe 12 (Quantum Counting) is the final recipe. It combines Grover's search (Recipe 06) with QPE (Recipe 10) — two powerful algorithms working together.
+- **If you liked this, try:** Circuit Bench 12 (Quantum Counting) is the final note in this sequence. It combines Grover's search (Circuit Bench 06) with QPE (Circuit Bench 10) — two powerful algorithms working together.

@@ -1,14 +1,13 @@
 # Quantum Workbooks
 
-Open quantum computing workbooks, notebooks, and runnable circuit recipes.
+Open quantum computing workbooks, notebooks, and runnable circuit notes.
 
 ## Repository layout
 
 ```text
 cookbook/
-  docs/        # MkDocs site for the runnable OpenQASM recipe collection
-  recipes/     # Recipe posts, QASM files, expected outputs, images
-  notebooks/   # Companion notebooks for cookbook recipes
+  recipes/     # Circuit Bench notes, QASM files, expected outputs, images
+  notebooks/   # Companion notebooks for Circuit Bench notes
 
 bottleneck/
   notebooks/   # Runnable companions for The Quantum Bottleneck
@@ -17,20 +16,20 @@ bottleneck/
 
 ## What lives where
 
-- `cookbook/` is the existing recipe collection: short, runnable quantum circuits with prose, QASM, and companion notebooks.
+- `cookbook/` is the source directory for the Circuit Bench: short, runnable quantum circuits with prose, QASM, and companion notebooks.
 - `bottleneck/` is the export surface for *The Quantum Bottleneck*: application-first workbook companions that stay runnable without becoming the manuscript source of truth.
 
 ## Current publishing surface
 
-The GitHub Pages build currently serves the cookbook site while the umbrella repo structure settles.
+The GitHub Pages build serves the Quantum Workbooks site from `docs/`, including the Circuit Bench and Bottleneck companion surfaces.
 
 ## Local preview
 
-Build the cookbook site from the repo root:
+Build the site from the repo root:
 
 ```bash
 pip install mkdocs-material
-mkdocs serve
+python3 -m mkdocs serve
 ```
 
 Run the Bottleneck notebook smoke harness:

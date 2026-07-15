@@ -1,23 +1,15 @@
-Expected output:
+Expected output for vqe_h2_zz.qasm:
 
-The VQE circuit is measured in multiple bases to estimate
-all terms in the H₂ Hamiltonian: ⟨Z0⟩, ⟨Z1⟩, ⟨Z0Z1⟩, ⟨X0X1⟩, ⟨Y0Y1⟩.
+This file measures one VQE trial state in the Z basis.
+In displayed q[0] q[1] order, an ideal 1024-shot run should
+put most of the probability on the two occupation patterns:
 
-For the Z-basis measurement (vqe_h2_zz.qasm):
-Typical 1024-shot output:
-{'01': ~840, '10': ~184}
+  {'01': ~512, '10': ~512}
 
-This gives approximately:
-⟨Z0⟩ ≈ +0.64
-⟨Z1⟩ ≈ -0.64
-⟨Z0Z1⟩ ≈ -1.0
+Small deviations are normal shot noise.
 
-After combining all Hamiltonian terms with their coefficients,
-the estimated ground state energy is approximately:
-  E ≈ -1.137 Hartree
-
-The exact value (full configuration interaction) is:
-  E_exact = -1.1373 Hartree
-
-The chemical accuracy threshold is 1.6 mHa (milli-Hartree),
-and VQE with this ansatz achieves it for H₂.
+These Z-basis counts estimate the Z0, Z1, and Z0Z1 terms of
+the reduced H2 Hamiltonian. A complete VQE energy estimate also
+requires X-basis and Y-basis measurement circuits for the X0X1
+and Y0Y1 terms, followed by a classical combination of all Pauli
+expectations with their Hamiltonian coefficients.

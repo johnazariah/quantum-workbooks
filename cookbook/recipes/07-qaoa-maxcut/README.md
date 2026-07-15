@@ -1,128 +1,155 @@
-# Recipe 07: QAOA for MaxCut
+# Circuit Bench 07: QAOA for MaxCut
 
 ## What are we making?
 
-A **variational quantum algorithm** that finds approximate solutions to a combinatorial optimization problem. Given a graph, the **Maximum Cut (MaxCut)** problem asks: partition the nodes into two groups to maximise the number of edges between the groups.
+A three-qubit QAOA circuit for **MaxCut on a triangle**.
 
-MaxCut is NP-hard in general, but the **Quantum Approximate Optimization Algorithm (QAOA)** — proposed by Farhi, Goldstone, and Gutmann in 2014 — gives a quantum-classical hybrid approach. The quantum computer prepares a state encoding candidate solutions; the classical computer tunes the parameters to improve solution quality. Repeat until convergence.
+If you came here from [The $50M Delivery Route](../../blog/posts/bottleneck-01-logistics.md), this is the same teaching example viewed from the Circuit Bench. The blog post explains why a tiny graph belongs in a logistics story. This note does the narrower job: show the actual OpenQASM circuit, explain the gates, and tell you what to expect when you run it.
 
-This is the first recipe where we use **parameterised gates** and a **classical optimization loop**. Welcome to the variational era.
+QAOA is a **variational quantum algorithm**. A quantum circuit prepares a probability distribution over candidate solutions; a classical optimiser chooses the circuit angles that make better solutions more likely. In this circuit note we use fixed angles that are already tuned for the triangle, so you can inspect the circuit without also building the optimiser.
 
-## Ingredients
+## What you need
 
-- 3 qubits (one per graph node)
+- 3 qubits, one per graph node
 - Hadamard gates (`h`)
 - CNOT gates (`cx`)
-- RZ gates (`rz`) — parameterised Z-rotations
-- RX gates (`rx`) — parameterised X-rotations
-- A [Quokka](https://www.quokkacomputing.com/) (puck or app)
+- Z-rotations (`rz`)
+- X-rotations (`rx`)
+- Measurement
+- A [Quokka](https://www.quokkacomputing.com/) puck or app
 
-**Prerequisites:** [Recipe 01 — Bell State](../01-bell-state/README.md) for CNOT basics, and general comfort with quantum circuits. No previous optimization knowledge needed.
+Useful side paths: [Circuit Bench 00 — Reading a Quantum Circuit](../00-reading-a-quantum-circuit/README.md) covers gates, unitary rotations, and measurement bases; [Circuit Bench 01 — Bell State](../01-bell-state/README.md) covers Hadamard, CNOT, and measurement correlation in the first two-qubit example.
 
-## Background: MaxCut on a Triangle
+## The graph
 
-Consider a triangle graph — three nodes, each pair connected:
+We use the smallest graph that still shows the QAOA mechanism:
 
-```
+```text
     0
    / \
   /   \
- 1─────2
+ 1-----2
 ```
 
-A **cut** partitions the nodes into two groups. The **cut value** is the number of edges between the groups. For a triangle:
+The edges are:
 
-| Partition | Groups | Edges cut | Value |
-|:---|:---|:---|:---|
-| 000 | All together | None | 0 |
-| 001 | {0,1} vs {2} | (0,2), (1,2) | 2 |
-| 010 | {0,2} vs {1} | (0,1), (1,2) | 2 |
-| 011 | {0} vs {1,2} | (0,1), (0,2) | 2 |
-| 100 | {1,2} vs {0} | (0,1), (0,2) | 2 |
-| 101 | {0,2} vs {1} | (0,1), (1,2) | 2 |
-| 110 | {0,1} vs {2} | (0,2), (1,2) | 2 |
-| 111 | All together | None | 0 |
-
-The maximum cut is **2** (achieved by any partition that puts one node alone). QAOA's job is to find one of these 6 optimal solutions.
-
-## How QAOA works
-
-QAOA alternates between two unitaries, each controlled by a tunable parameter:
-
-1. **Problem unitary** $U_C(\gamma) = e^{-i\gamma C}$: encodes the MaxCut objective. Edges with endpoints in different groups accumulate phase.
-
-2. **Mixer unitary** $U_M(\beta) = e^{-i\beta B}$: encourages exploration by rotating qubits in the X basis.
-
-Starting from a uniform superposition $|+\rangle^{\otimes n}$, the QAOA ansatz at depth $p$ is:
-
-$$|\gamma, \beta\rangle = U_M(\beta_p) U_C(\gamma_p) \cdots U_M(\beta_1) U_C(\gamma_1) |+\rangle^{\otimes n}$$
-
-A classical optimizer adjusts $\gamma$ and $\beta$ to maximize $\langle\gamma, \beta|C|\gamma, \beta\rangle$ — the expected cut value.
-
-## Method
-
-We'll run QAOA with $p = 1$ (one layer) on the triangle graph, using pre-optimized parameters $\gamma = \pi/4$ and $\beta = \pi/8$.
-
-### Step 1: Initial superposition
-
+```text
+(0, 1), (0, 2), (1, 2)
 ```
+
+A bit string assigns each node to one side of the cut:
+
+```text
+0 = one side
+1 = the other side
+```
+
+An edge is cut if its endpoints have different bits.
+
+| Bit string | Cut value |
+|:---:|:---:|
+| `000` | 0 |
+| `001` | 2 |
+| `010` | 2 |
+| `011` | 2 |
+| `100` | 2 |
+| `101` | 2 |
+| `110` | 2 |
+| `111` | 0 |
+
+The best possible cut value is 2. Six bit strings achieve it; `000` and `111` cut no edges.
+
+## The circuit rhythm
+
+Depth-1 QAOA has four stages:
+
+1. **Prepare all colourings.** Apply Hadamards to create an equal superposition over the eight bit strings.
+2. **Apply one phase block per edge.** Use a CNOT-`rz`-CNOT sandwich to add a phase that depends on whether two endpoint bits agree or differ.
+3. **Mix neighbouring colourings.** Apply `rx` rotations so amplitude can move between bit strings that differ by one bit.
+4. **Measure.** Sample a bit string and score its cut value.
+
+The cost phase alone does not change measurement probabilities. It writes information into phase. The mixer is what lets those phases interfere and change the final probability distribution.
+
+## Parameter convention
+
+OpenQASM 2.0 defines:
+
+$$
+R_Z(\theta) = e^{-i\theta Z/2}, \qquad R_X(\theta) = e^{-i\theta X/2}.
+$$
+
+This note uses the same convention as the companion notebook:
+
+```text
+edge block: cx; rz(2 * gamma); cx
+mixer:      rx(2 * beta)
+```
+
+For this triangle instance, the fixed angles are:
+
+```text
+gamma = 1.264491043069892
+beta  = 0.3063052837250049
+```
+
+So the QASM uses:
+
+```text
+rz(2.528982)
+rx(0.612611)
+```
+
+Do not treat those numbers as universal QAOA constants. They are good angles for this particular graph and this particular gate convention.
+
+## Step 1: Prepare the search space
+
+```qasm
 h q[0];
 h q[1];
 h q[2];
 ```
 
-Equal superposition over all $2^3 = 8$ possible partitions.
+This creates an equal superposition over all eight possible cuts.
 
-### Step 2: Problem unitary
+## Step 2: Add one edge phase block per edge
 
-For each edge $(i, j)$, we implement $e^{-i\gamma Z_i Z_j}$ using a CNOT-RZ-CNOT sandwich:
+For edge `(0, 1)`:
 
-```
-// Edge (0,1)
+```qasm
 cx q[0], q[1];
-rz(0.7854) q[1];    // γ = π/4 ≈ 0.7854
+rz(2.528982) q[1];
 cx q[0], q[1];
-
-// Edge (1,2)
-cx q[1], q[2];
-rz(0.7854) q[2];
-cx q[1], q[2];
-
-// Edge (0,2)
-cx q[0], q[2];
-rz(0.7854) q[2];
-cx q[0], q[2];
 ```
 
-!!! info "Why CNOT-RZ-CNOT implements $e^{-i\\gamma Z_i Z_j}$"
-    The CNOT maps the $Z_i Z_j$ interaction to a single-qubit $Z_j$ rotation (because CNOT computes parity). The RZ applies the rotation. The second CNOT uncomputes the parity. Net effect: a phase that depends on whether qubits $i$ and $j$ agree or disagree — exactly what MaxCut needs.
+The first CNOT computes the parity of the two endpoint bits into the target qubit. The `rz` gate applies a phase based on that parity. The second CNOT uncomputes the parity so the bit string is restored.
 
-### Step 3: Mixer unitary
+Repeat the same pattern for `(0, 2)` and `(1, 2)`.
 
-Apply $\text{RX}(2\beta)$ to each qubit:
+## Step 3: Mix
 
+```qasm
+rx(0.612611) q[0];
+rx(0.612611) q[1];
+rx(0.612611) q[2];
 ```
-rx(0.3927) q[0];    // 2β = π/4 ≈ 0.3927... wait
-```
 
-!!! note "Parameter convention"
-    In OpenQASM 2.0, `rx(θ)` implements $e^{-i\theta X/2}$. To get $e^{-i\beta X}$, we need `rx(2β)`. For $\beta = \pi/8$: `rx(π/4) = rx(0.7854)`. Our QASM file uses a simplified parameterization — check the actual file for exact values.
+The mixer lets amplitude flow between neighbouring bit strings. Because the edge blocks have already given different phases to different cut values, this mixing turns hidden phase information into visible probability bias.
 
-### Step 4: Measure
+## Step 4: Measure
 
-```
+```qasm
 measure q[0] -> c[0];
 measure q[1] -> c[1];
 measure q[2] -> c[2];
 ```
 
-Sample bit strings. Each string encodes a partition. Count the cut value for each sample. The distribution should be biased toward high-cut-value partitions.
+Each shot returns one candidate cut.
 
 ## The complete circuit
 
-Available as [`qaoa_maxcut.qasm`](qaoa_maxcut.qasm):
+The full QASM file is [`qaoa_maxcut.qasm`](qaoa_maxcut.qasm):
 
-```
+```qasm
 OPENQASM 2.0;
 include "qelib1.inc";
 
@@ -133,25 +160,21 @@ h q[0];
 h q[1];
 h q[2];
 
-// Problem unitary: edge (0,1)
 cx q[0], q[1];
-rz(0.7854) q[1];
+rz(2.528982) q[1];
 cx q[0], q[1];
 
-// Problem unitary: edge (1,2)
-cx q[1], q[2];
-rz(0.7854) q[2];
-cx q[1], q[2];
-
-// Problem unitary: edge (0,2)
 cx q[0], q[2];
-rz(0.7854) q[2];
+rz(2.528982) q[2];
 cx q[0], q[2];
 
-// Mixer unitary
-rx(0.3927) q[0];
-rx(0.3927) q[1];
-rx(0.3927) q[2];
+cx q[1], q[2];
+rz(2.528982) q[2];
+cx q[1], q[2];
+
+rx(0.612611) q[0];
+rx(0.612611) q[1];
+rx(0.612611) q[2];
 
 measure q[0] -> c[0];
 measure q[1] -> c[1];
@@ -160,108 +183,58 @@ measure q[2] -> c[2];
 
 ![QAOA MaxCut circuit](circuit.png)
 
-## Taste test
+## Run it
 
-Paste `qaoa_maxcut.qasm` into your Quokka. You should see the 6 optimal partitions (`001`, `010`, `011`, `100`, `101`, `110`) appearing with significantly higher probability than `000` and `111`:
+Paste `qaoa_maxcut.qasm` into Quokka and sample it.
 
+In an ideal simulation with the fixed angles above, the six optimal bit strings are strongly favoured and `000` and `111` are heavily suppressed:
+
+```text
+001, 010, 011, 100, 101, 110  -> about one-sixth each
+000, 111                      -> close to zero
 ```
-{'001': ~150, '010': ~150, '011': ~150, '100': ~150, '101': ~150, '110': ~150, '000': ~37, '111': ~37}
-```
 
-The optimal states together capture ~88% of the probability. Taking the most frequently sampled string gives you a maximum cut.
-
-!!! tip "The full optimization loop"
-    In practice, you'd run this circuit many times with different $\gamma$ and $\beta$ values, using a classical optimizer (COBYLA, Nelder-Mead, etc.) to find the parameters that maximize the expected cut value. Our QASM file uses pre-optimized parameters so you can see the result immediately.
+Shot noise means your exact counts will vary. The important thing to check is not the order of the bit strings; it is whether the samples are concentrated on cuts with value 2.
 
 ## Deep dive
 
-??? abstract "The MaxCut cost Hamiltonian"
+### Why the CNOT-RZ-CNOT block is a ZZ phase
 
-    The MaxCut objective function for a graph $G = (V, E)$ is:
+CNOT computes parity. For two bits $a$ and $b$, the target becomes $a \oplus b$ after the first CNOT.
 
-    $$C = \sum_{(i,j) \in E} \frac{1 - Z_i Z_j}{2}$$
+The `rz` rotation applies one phase when that parity is 0 and another phase when it is 1.
 
-    where $Z_i$ is the Pauli-Z operator on qubit $i$. For a bit string $z \in \{0,1\}^n$:
+The second CNOT restores the target bit. The computational basis state is unchanged, but it has picked up a phase depending on whether the two endpoint bits agreed or differed.
 
-    - If $z_i = z_j$ (same group): $Z_i Z_j = +1$, edge contributes 0
-    - If $z_i \neq z_j$ (different groups): $Z_i Z_j = -1$, edge contributes 1
+Algebraically:
 
-    So $\langle z|C|z\rangle$ counts exactly the number of edges cut by partition $z$.
+$$
+\mathrm{CNOT}_{ij}\, R_Z(\theta)_j\, \mathrm{CNOT}_{ij}
+=
+e^{-i\theta Z_i Z_j/2}.
+$$
 
-    For the triangle graph with edges $(0,1), (1,2), (0,2)$:
+Setting $\theta = 2\gamma$ gives the edge phase used in this note.
 
-    $$C = \frac{3 - Z_0 Z_1 - Z_1 Z_2 - Z_0 Z_2}{2}$$
+### Where the optimiser went
 
-    The problem unitary $U_C(\gamma) = e^{-i\gamma C}$ decomposes into independent $e^{-i\gamma Z_i Z_j}$ terms (since all $Z_i Z_j$ commute), which is why we can implement each edge separately.
+Full QAOA does not normally start with fixed angles. It runs a loop:
 
-??? abstract "CNOT-RZ-CNOT decomposition of $e^{-i\\gamma Z_i Z_j}$"
+```text
+choose gamma, beta
+run the circuit many times
+estimate the average cut value
+update gamma, beta classically
+repeat
+```
 
-    We need to implement $e^{-i\gamma Z_i Z_j}$. The key insight: CNOT maps the computational basis as $|a, b\rangle \to |a, a \oplus b\rangle$, so:
+This note freezes the loop at one good pair of angles so the circuit is readable as a standalone QASM program.
 
-    $$\text{CNOT}_{ij} \cdot Z_j \cdot \text{CNOT}_{ij} = Z_i Z_j$$
+The companion notebook runs the same idea in a more workbook-like form: it builds the graph, brute-forces the answer, constructs QASM, samples the circuit, and sweeps the parameter landscape.
 
-    Therefore:
+## Notes
 
-    $$e^{-i\gamma Z_i Z_j} = \text{CNOT}_{ij} \cdot e^{-i\gamma Z_j} \cdot \text{CNOT}_{ij} = \text{CNOT}_{ij} \cdot \text{RZ}(2\gamma) \cdot \text{CNOT}_{ij}$$
-
-    where $\text{RZ}(\theta) = e^{-i\theta Z/2}$, so $\text{RZ}(2\gamma) = e^{-i\gamma Z}$.
-
-    This is a standard decomposition used throughout quantum simulation. Each edge costs 2 CNOTs and 1 single-qubit rotation.
-
-??? abstract "The QAOA performance guarantee"
-
-    For MaxCut on 3-regular graphs, QAOA at depth $p = 1$ achieves an approximation ratio of at least $0.6924$ — meaning the expected cut value is at least 69.24% of the maximum. This was proven by Farhi, Goldstone, and Gutmann in their original 2014 paper.
-
-    The best known classical polynomial-time algorithm (Goemans-Williamson, 1995) achieves $\approx 0.878$. Whether QAOA at higher depth can beat this is an open question and one of the central problems in quantum optimization.
-
-    For our triangle graph, the approximation ratio with optimal $p = 1$ parameters is much higher (~0.94) because the problem is so small. On larger graphs, the advantage of increasing $p$ becomes more significant.
-
-    | Depth $p$ | Parameters to optimize | Expected quality |
-    |:---|:---|:---|
-    | 1 | 2 ($\gamma_1, \beta_1$) | Good for small, dense graphs |
-    | 2 | 4 ($\gamma_{1,2}, \beta_{1,2}$) | Better on structured instances |
-    | $p \to \infty$ | $2p$ | Converges to exact solution |
-
-??? abstract "Variational quantum algorithms: the hybrid paradigm"
-
-    QAOA belongs to the family of **Variational Quantum Eigensolvers (VQE)** — hybrid algorithms where:
-
-    1. A **quantum computer** prepares a parameterized state $|\psi(\theta)\rangle$
-    2. Measures an objective $\langle\psi(\theta)|H|\psi(\theta)\rangle$
-    3. A **classical computer** updates $\theta$ to minimize (or maximize) the objective
-    4. Repeat until convergence
-
-    This paradigm is designed for **near-term quantum hardware** (NISQ devices) that can't run long coherent computations. The quantum circuit is short (low depth), and the classical optimizer handles the heavy lifting.
-
-    The main challenges:
-
-    - **Barren plateaus:** For random circuits, the gradient of the cost function vanishes exponentially with qubit count, making optimization intractable
-    - **Local minima:** The optimization landscape is non-convex
-    - **Measurement overhead:** Estimating $\langle H \rangle$ requires many shots, especially for Hamiltonians with many terms
-
-    QAOA partially sidesteps barren plateaus because its ansatz structure (alternating problem and mixer unitaries) is problem-specific rather than random.
-
-??? abstract "Classical optimization strategies"
-
-    The QASM file uses fixed parameters, but in practice you'd optimize them. Common classical optimizers:
-
-    | Optimizer | Type | Pros | Cons |
-    |:---|:---|:---|:---|
-    | COBYLA | Derivative-free | Works with noisy cost estimates | Slow convergence |
-    | Nelder-Mead | Derivative-free | Simple, robust | Scales poorly with parameters |
-    | SPSA | Stochastic gradient | Handles noise naturally | Requires tuning step sizes |
-    | L-BFGS-B | Gradient-based | Fast convergence | Needs accurate gradients |
-
-    For QAOA specifically, the parameter landscape has useful structure: optimal parameters for depth $p$ can be used to initialize depth $p + 1$ (parameter transfer). The landscape also has symmetries ($\gamma$ and $\beta$ are periodic) that reduce the search space.
-
-    For our triangle graph, a grid search over $\gamma \in [0, \pi]$ and $\beta \in [0, \pi/2]$ quickly finds the optimum at $\gamma \approx \pi/4$, $\beta \approx \pi/8$.
-
-## Chef's notes
-
-- **This is a near-term algorithm.** Unlike Grover or Shor, QAOA is designed for today's noisy quantum hardware. It doesn't need error correction — just enough coherence to run a shallow circuit.
-
-- **The classical optimizer matters as much as the quantum circuit.** QAOA's performance depends heavily on finding good parameters. For small problems, grid search works. For larger ones, you need smarter strategies.
-
-- **MaxCut is just the beginning.** The QAOA framework applies to any combinatorial optimization problem encodable as a cost Hamiltonian: graph coloring, traveling salesman, portfolio optimization, scheduling, etc.
-
-- **If you liked this, try:** Recipe 08 (VQE for H₂) uses the same variational paradigm for a completely different problem — finding the ground state energy of a molecule. Recipe 09 (QFT) goes back to exact algorithms.
+- **This is a circuit note, not an advantage claim.** The triangle does not need a quantum computer. It is small enough to expose the mechanism.
+- **The angles are convention-dependent.** If you change signs, factors of two, or edge-order conventions, the best numerical angles can change.
+- **The optimiser is part of QAOA.** This QASM file shows one tuned circuit. The full algorithm is the quantum-classical loop around it.
+- **MaxCut is the clean specimen.** Scheduling, routing, and other optimisation problems need more elaborate encodings, but the pattern is the same: turn the objective into phases, mix, measure, and tune.

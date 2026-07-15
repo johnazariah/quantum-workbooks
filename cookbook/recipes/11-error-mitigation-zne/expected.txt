@@ -1,6 +1,6 @@
 Expected output:
 
-This recipe demonstrates the CONCEPT of ZNE using three noise levels.
+This note demonstrates the CONCEPT of ZNE using three noise levels.
 The exact results depend on your hardware's noise characteristics.
 
 On a perfect simulator:

@@ -1,4 +1,4 @@
-# Recipe 06: Grover's Search
+# Circuit Bench 06: Grover's Search
 
 ## What are we making?
 
@@ -16,7 +16,7 @@ This isn't an exponential speedup (that was Simon's), but it's **universal** —
 - Toffoli gate (`ccx`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 03 — Deutsch-Jozsa](../03-deutsch-jozsa/README.md) for phase kickback, and comfort with multi-qubit gates.
+**Prerequisites:** [Circuit Bench 03 — Deutsch-Jozsa](../03-deutsch-jozsa/README.md) for phase kickback, and comfort with multi-qubit gates.
 
 ## Background: searching without structure
 
@@ -208,7 +208,7 @@ The target $|101\rangle$ dominates with ~94.5% of the shots. The other 7 states 
 
     For $N = 8$: $\theta = \arcsin(1/\sqrt{8}) \approx 0.3614$, so $k_{\text{opt}} = \lfloor 2.22 \rfloor = 2$, and $\sin^2(5 \times 0.3614) \approx 0.945$.
 
-    **Too many iterations is bad!** If you overshoot, the rotation goes past $|w\rangle$ and the probability decreases. Grover's algorithm has a "sweet spot" and you need to know (or estimate) the number of solutions to choose $k$ correctly. Recipe 12 (Quantum Counting) addresses this.
+    **Too many iterations is bad!** If you overshoot, the rotation goes past $|w\rangle$ and the probability decreases. Grover's algorithm has a "sweet spot" and you need to know (or estimate) the number of solutions to choose $k$ correctly. Circuit Bench 12 (Quantum Counting) addresses this.
 
 ??? abstract "The diffusion operator as reflection about the mean"
 
@@ -256,11 +256,11 @@ The target $|101\rangle$ dominates with ~94.5% of the shots. The other 7 states 
 
     **Solution 1: Exponential search.** Try $k = 1, 2, 4, 8, \ldots$. For each $k$, pick a random multiplier $\lambda \in [1, 4/3]$ and run $\lfloor \lambda k \rfloor$ iterations. This finds a solution in $O(\sqrt{N/M})$ total queries even without knowing $M$. (Boyer, Brassard, Høyer, Tapp, 1998.)
 
-    **Solution 2: Quantum Counting.** Use Recipe 10 (QPE) on the Grover operator to estimate $\theta$ directly, giving you $M$ without searching. Then run Grover's with the right $k$. See Recipe 12.
+    **Solution 2: Quantum Counting.** Use Circuit Bench 10 (QPE) on the Grover operator to estimate $\theta$ directly, giving you $M$ without searching. Then run Grover's with the right $k$. See Circuit Bench 12.
 
 ??? abstract "The oracle as a phase oracle: implementation patterns"
 
-    In this recipe, we build the oracle for $|101\rangle$ using a Toffoli gate. Here's the general pattern for marking an arbitrary $n$-qubit target $|t\rangle$:
+    In this note, we build the oracle for $|101\rangle$ using a Toffoli gate. Here's the general pattern for marking an arbitrary $n$-qubit target $|t\rangle$:
 
     1. For each qubit $i$ where $t_i = 0$: apply X before and after the multi-controlled-Z
     2. Apply a multi-controlled-Z gate (which flips the phase of $|1\rangle^{\otimes n}$)
@@ -283,4 +283,4 @@ The target $|101\rangle$ dominates with ~94.5% of the shots. The other 7 states 
 
 - **The Toffoli gate.** The CCX (Toffoli) gate flips the target qubit if *both* controls are 1. It's the quantum AND gate and a universal building block for reversible computation. We use it here to mark a specific 3-qubit state.
 
-- **If you liked this, try:** Recipe 07 (QAOA) uses a different strategy for combinatorial optimization — variational rather than exact. Recipe 12 (Quantum Counting) combines Grover with QPE to count solutions without finding them.
+- **If you liked this, try:** Circuit Bench 07 (QAOA) uses a different strategy for combinatorial optimization — variational rather than exact. Circuit Bench 12 (Quantum Counting) combines Grover with QPE to count solutions without finding them.

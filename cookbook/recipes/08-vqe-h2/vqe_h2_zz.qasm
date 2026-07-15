@@ -1,26 +1,19 @@
 OPENQASM 2.0;
 include "qelib1.inc";
 
-// VQE for H₂ molecule at bond length 0.735 Å
-// Minimal STO-3G basis, Bravyi-Kitaev encoding
-// 2-qubit ansatz with one variational parameter θ
-// Optimal θ ≈ 0.59 radians (pre-optimized)
+// VQE trial circuit for the reduced two-qubit H2 model.
+// This file measures one trial angle in the Z basis.
 
 qreg q[2];
 creg c[2];
 
-// Initial Hartree-Fock state: |01⟩
-x q[0];
+// Hartree-Fock reference state for this qubit ordering.
+x q[1];
 
-// Variational ansatz: single excitation
-// Implements exp(-i θ/2 (X0 Y1 - Y0 X1)) via decomposition
-// This is the "give-phase" parameterized excitation gate
+// One trial point in the variational ansatz.
+ry(1.570796) q[0];
+cx q[0], q[1];
 
-ry(0.59) q[1];
-cx q[1], q[0];
-ry(-0.59) q[1];
-cx q[1], q[0];
-
-// Measure in Z basis (for ⟨Z0⟩ and ⟨Z1⟩ terms)
+// Z-basis measurement for Z0, Z1, and Z0Z1 estimates.
 measure q[0] -> c[0];
 measure q[1] -> c[1];

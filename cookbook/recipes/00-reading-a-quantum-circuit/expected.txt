@@ -1,0 +1,13 @@
+z-basis-of-plus.qasm
+Expected output (1024 shots, approximate):
+{'0': ~512, '1': ~512}
+
+x-basis-of-plus.qasm
+Expected output (ideal):
+{'0': 1024}
+
+phase-becomes-visible.qasm
+Expected output (ideal):
+{'1': 1024}
+
+Real hardware may show occasional stray counts because of noise.

@@ -1,17 +1,24 @@
-Expected output (exact):
-{'001': 1.0}
+Expected output:
 
-Expected output (1024 shots):
-{'001': 1024}
+001: 1.0
 
-The counting register reads 001 (binary) = 1 (decimal).
-Phase estimate: φ = 1/2³ = 1/8.
-Eigenvalue: e^(2πi·1/8) = e^(iπ/4).
+Expected output for 1024 shots:
 
-This matches the T gate eigenvalue exactly: T|1⟩ = e^(iπ/4)|1⟩.
+001: 1024
 
-The result is deterministic — 100% probability on the correct answer
-because φ = 1/8 is exactly representable with 3 bits of precision.
+The counting register reads 001 in displayed order q[0] q[1] q[2],
+which is integer 1.
+With three counting qubits, the phase estimate is:
 
-For phases that aren't exact multiples of 1/2ⁿ, the output
-distribution peaks near the correct value with probability ≥ 4/π² ≈ 0.405.
+  phi = 1 / 2^3 = 1/8
+
+This matches the T gate eigenphase:
+
+  T|1> = exp(2*pi*i/8)|1>
+
+The result is deterministic in the ideal circuit because phi = 1/8 is
+exactly representable with three bits of precision.
+
+For phases that are not exact multiples of 1/2^n, the output
+distribution spreads across nearby bit strings and peaks near the best
+n-bit approximation.

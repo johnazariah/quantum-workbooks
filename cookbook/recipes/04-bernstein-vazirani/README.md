@@ -1,4 +1,4 @@
-# Recipe 04: Bernstein-Vazirani
+# Circuit Bench 04: Bernstein-Vazirani
 
 ## What are we making?
 
@@ -14,7 +14,7 @@ Classically, you need $n$ queries (one per bit — feed in $100\ldots0$, $010\ld
 - 1 X gate (`x`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 03 — Deutsch-Jozsa](../03-deutsch-jozsa/README.md). You should understand phase kickback and the role of the $|{-}\rangle$ ancilla.
+**Prerequisites:** [Circuit Bench 03 — Deutsch-Jozsa](../03-deutsch-jozsa/README.md). You should understand phase kickback and the role of the $|{-}\rangle$ ancilla.
 
 ## Background: the hidden string problem
 
@@ -190,7 +190,7 @@ The hidden string $s = 101$ is recovered with certainty in one query.
     |:---|:---|:---|
     | Deutsch-Jozsa | Constant or balanced | All weight on $0^n$ (constant) vs. zero weight on $0^n$ (balanced) |
     | Bernstein-Vazirani | $s \cdot x$ for hidden $s$ | All weight on $s$ (a delta function in Fourier space) |
-    | Simon's (Recipe 05) | $f(x) = f(x \oplus s)$ | Uniform over $s^\perp$ (the subspace orthogonal to $s$) |
+    | Simon's (Circuit Bench 05) | $f(x) = f(x \oplus s)$ | Uniform over $s^\perp$ (the subspace orthogonal to $s$) |
 
     Bernstein-Vazirani is the "sharpest" case: the hidden string $s$ is literally a single Fourier coefficient, so one Fourier sample gives it exactly.
 
@@ -208,7 +208,7 @@ The hidden string $s = 101$ is recovered with certainty in one query.
 
     Quantum mechanically, the Hadamard transform simultaneously queries all $2^n$ inputs and extracts the full solution from the interference pattern. The "linear independence" requirement is replaced by the orthogonality of the Walsh-Hadamard basis functions.
 
-    This $\mathbb{F}_2$ linear algebra perspective becomes crucial in Simon's algorithm (Recipe 05), where you're finding a hidden *subgroup* rather than a single vector.
+    This $\mathbb{F}_2$ linear algebra perspective becomes crucial in Simon's algorithm (Circuit Bench 05), where you're finding a hidden *subgroup* rather than a single vector.
 
 ??? abstract "The oracle circuit: why CNOT is the right gate"
 
@@ -228,4 +228,4 @@ The hidden string $s = 101$ is recovered with certainty in one query.
 
 - **Try building your own oracle.** Pick any 3-bit string, wire up the corresponding CNOTs, and verify the algorithm finds it. This is the best way to build intuition for how the oracle structure maps to the measurement outcome.
 
-- **If you liked this, try:** Recipe 05 (Simon's Problem) tackles a harder version: the hidden string $s$ defines a *period* in the function ($f(x) = f(x \oplus s)$), and one Fourier sample isn't enough — you need $O(n)$ samples from the orthogonal subspace. It's the bridge to Shor's algorithm.
+- **If you liked this, try:** Circuit Bench 05 (Simon's Problem) tackles a harder version: the hidden string $s$ defines a *period* in the function ($f(x) = f(x \oplus s)$), and one Fourier sample isn't enough — you need $O(n)$ samples from the orthogonal subspace. It's the bridge to Shor's algorithm.

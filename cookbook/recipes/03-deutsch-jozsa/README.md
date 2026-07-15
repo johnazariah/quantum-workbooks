@@ -1,4 +1,4 @@
-# Recipe 03: Deutsch-Jozsa
+# Circuit Bench 03: Deutsch-Jozsa
 
 ## What are we making?
 
@@ -16,7 +16,7 @@ Classically, you might need to check just over half the inputs before you know. 
 - 1 X gate (`x`)
 - A [Quokka](https://www.quokkacomputing.com/) (puck or app)
 
-**Prerequisites:** [Recipe 01 — Bell State](../01-bell-state/README.md). You should be comfortable with superposition and the Hadamard gate.
+**Prerequisites:** [Circuit Bench 01 — Bell State](../01-bell-state/README.md). You should be comfortable with superposition and the Hadamard gate.
 
 ## Background: constant vs. balanced
 
@@ -262,7 +262,7 @@ Always `11` — not `00`, so the function is balanced. ✓
 
     The ancilla is unchanged (it's still $|{-}\rangle$). The information about $f(x)$ lives entirely in the phase of $|x\rangle$. This is why we don't measure the ancilla — it's done its job.
 
-    Phase kickback appears again in Bernstein-Vazirani (Recipe 04), Simon's algorithm (Recipe 05), Grover's search (Recipe 06), and in a more sophisticated form in quantum phase estimation (Recipe 10). Master it here.
+    Phase kickback appears again in Bernstein-Vazirani (Circuit Bench 04), Simon's algorithm (Circuit Bench 05), Grover's search (Circuit Bench 06), and in a more sophisticated form in quantum phase estimation (Circuit Bench 10). Master it here.
 
 ??? abstract "The Hadamard transform as Fourier analysis"
 
@@ -307,7 +307,7 @@ Always `11` — not `00`, so the function is balanced. ✓
 
     Deutsch and Jozsa generalised this to $n$ bits in 1992. The algorithm is essentially the same — the Hadamard transform scales naturally. But the speedup grows from a factor of 2 (for $n = 1$) to an exponential separation (for general $n$).
 
-    The Deutsch-Jozsa algorithm is historically important: it was the first problem shown to have an exponential quantum speedup (in the query model). It directly inspired Simon's algorithm (Recipe 05), which in turn inspired Shor's algorithm for factoring.
+    The Deutsch-Jozsa algorithm is historically important: it was the first problem shown to have an exponential quantum speedup (in the query model). It directly inspired Simon's algorithm (Circuit Bench 05), which in turn inspired Shor's algorithm for factoring.
 
 ## Chef's notes
 
@@ -317,4 +317,4 @@ Always `11` — not `00`, so the function is balanced. ✓
 
 - **Try building your own oracle.** Any balanced function works. For 2 bits, some options: $f(x) = x_0$ (CNOT from q[0] to q[2]), $f(x) = x_1$ (CNOT from q[1] to q[2]), $f(x) = x_0 \oplus x_1 \oplus 1$ (add an X gate on q[2] after the CNOTs). Run each one and verify you never get `00`.
 
-- **If you liked this, try:** Recipe 04 (Bernstein-Vazirani) uses the exact same circuit structure but extracts more information — not just "constant or balanced?" but the *actual hidden string*. It's a direct upgrade.
+- **If you liked this, try:** Circuit Bench 04 (Bernstein-Vazirani) uses the exact same circuit structure but extracts more information — not just "constant or balanced?" but the *actual hidden string*. It's a direct upgrade.
