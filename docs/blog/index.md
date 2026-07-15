@@ -1,6 +1,7 @@
 ---
 hide:
+  - navigation
   - toc
 ---
 
-# Posts
+Head to the [main page](../index.md) for series, posts, and circuit notes.

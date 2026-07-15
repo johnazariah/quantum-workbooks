@@ -72,7 +72,6 @@ nav:
       - "12 — Quantum Counting": circuit-bench/12-quantum-counting/README.md
   - The Quantum Bottleneck:
     - Companion Notebooks: bottleneck/index.md
-  - Posts: blog/index.md
   - References: references.md
   - About: about.md
 

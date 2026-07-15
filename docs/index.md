@@ -35,9 +35,9 @@ We teach quantum computing **problem-down**: start with something you want to co
 
 </div>
 
-## Latest posts
+## Latest
 
-Check the [blog](blog/index.md) for the latest writeups: problem-first walkthroughs of quantum algorithms, new circuit notes, and companion notebook guides.
+- [How to Raise *e* to a Matrix (and Why You'd Want To)](blog/2026/07/14/how-to-raise-e-to-a-matrix-and-why-youd-want-to/) — the matrix exponential solves the Schrödinger equation, and the result is a rotation rather than a stretch.
 
 ## From the main blog
 
