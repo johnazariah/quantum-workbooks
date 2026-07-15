@@ -1,64 +1,71 @@
-# Start here: quantum computing, problem first
+---
+hide:
+  - toc
+---
 
-Most quantum computing explanations begin with a qubit.
+# Quantum computing, problem first
 
-This blog usually will not.
+Most quantum computing explanations begin with a qubit. This blog usually does not.
 
-The goal here is to teach real quantum computing from the direction in which people encounter real problems: delivery routes, cryptography, drug discovery, machine learning, finance, supply chains, materials, and climate. We start with the bottleneck, build the smallest runnable notebook that exposes the structure, and introduce the quantum machinery only when the problem asks for it.
+We start with the problem, build the smallest runnable notebook that exposes the structure, and introduce the quantum machinery only when the problem asks for it. That does not mean skipping the foundations. It means earning them.
 
-That does not mean skipping the foundations. It means earning them.
+---
 
-## What these posts are for
+## Linear Algebra for Fun and Profit
 
-Each post is a companion to a runnable workbook. The post gives you the orientation: what problem we are studying, why the classical version runs into trouble, what quantum idea enters, and what the notebook is actually demonstrating.
+The linear algebra behind quantum computing and machine learning. Each post builds from first principles with a single running example you can check by hand.
 
-The notebook is the lab bench. It keeps the moving parts visible: circuit construction, calls to the backend, measurements, post-processing, and the classical checks that keep the example honest.
+| | Post | One-line summary |
+|---|---|---|
+| Part 1 | [How to Raise *e* to a Matrix](posts/2026-07-14-how-to-raise-e-to-a-matrix.md) | The matrix exponential solves the Schrödinger equation, and the result is a rotation rather than a stretch. |
+| Part 2 | [What a Difference *i* Makes](posts/2026-07-21-what-a-difference-i-makes.md) | Power iteration, imaginary time, and phase estimation are one move; the only difference is a factor of *i*. |
 
-This is part of a larger project called *The Quantum Bottleneck*, but the blog is not trying to be the long-form version in miniature. It is a public companion path: enough context to understand the notebooks, enough honesty to know what they do not prove, and enough structure to see why the examples matter.
+---
 
-## How to read the series
+## The Quantum Bottleneck
 
-Start anywhere that interests you, but the first path is:
+Eight industry problems, each paired with the quantum algorithm that could solve it. Companion to the upcoming book. Every post follows the same rhythm: problem, bottleneck, quantum idea, notebook, reality check.
 
-1. [The $50M Delivery Route](posts/bottleneck-01-logistics.md) — QAOA for a tiny MaxCut instance, motivated by logistics.
-2. [The Trapdoor](posts/bottleneck-02-cryptography.md) — Shor's algorithm as period-finding, motivated by public-key cryptography.
-3. [The $2B Molecule](posts/bottleneck-03-drug-discovery.md) — VQE as a way to estimate molecular energy.
+| Unit | Post | Problem domain | Algorithm |
+|---|---|---|---|
+| 1 | [The $50M Delivery Route](posts/bottleneck-01-logistics.md) | Logistics | QAOA / MaxCut |
+| 2 | [The Trapdoor](posts/bottleneck-02-cryptography.md) | Cryptography | Shor / period-finding |
+| 3 | [The $2B Molecule](posts/bottleneck-03-drug-discovery.md) | Drug discovery | VQE |
+| 4 | [The Feature Explosion](posts/bottleneck-04-machine-learning.md) | Machine learning | Quantum kernels |
+| 5 | [The Convergence Wall](posts/bottleneck-05-finance.md) | Finance | Amplitude estimation |
+| 6 | [The Scheduling Nightmare](posts/bottleneck-06-supply-chains.md) | Supply chains | QUBO / Ising |
+| 7 | [The Materials Maze](posts/bottleneck-07-materials-science.md) | Materials science | QPE / Hubbard |
+| 8 | [The Catalyst Bottleneck](posts/bottleneck-08-climate-energy.md) | Climate / energy | VQE embedding |
 
-Each post follows the same rhythm:
+Each post links to a [companion notebook](../bottleneck/index.md) you can run, and to the relevant [Circuit Bench](../circuit-bench/index.md) note for the gate-level machinery.
 
-```text
-problem -> bottleneck -> quantum idea -> notebook -> reality check
-```
+---
 
-When a notebook uses a toy example, you will see that called out clearly. When an algorithm depends on fault-tolerant hardware before it becomes industrially useful, you will see that called out too. The point is not to make quantum computing sound inevitable. The point is to make the structure visible.
+## From Saturday to Co-Author
 
-## Where the Circuit Bench fits
+A ten-part series documenting the journey from learning QAOA on a Saturday morning to co-authoring a quantum computing paper, eight weeks later. Written in Julia, grounded in functional programming, and published on the [main blog](https://johnazariah.github.io).
 
-The [Circuit Bench](../circuit-bench/index.md) is the side path for circuit literacy and circuit machinery: gates, Bloch-sphere intuition, measurement bases, Bell states, teleportation, Grover search, the Quantum Fourier Transform, phase estimation, VQE, QAOA, quantum counting, and error mitigation.
+[Read the full series →](https://johnazariah.github.io/tags/from-saturday-to-coauthor/)
 
-You do not need to read the Circuit Bench before reading the Bottleneck posts. The main path here is application-first. But when a post meets a circuit primitive that deserves a closer look, it will point to the relevant circuit note.
+| | Post |
+|---|---|
+| 1 | [Saturday](https://johnazariah.github.io/2026/05/29/saturday-to-coauthor-01-saturday.html) |
+| 2 | [The Fold Under the Tree](https://johnazariah.github.io/2026/06/01/saturday-to-coauthor-02-the-fold-under-the-tree.html) |
+| 3 | [Three Gradients in One Codebase](https://johnazariah.github.io/2026/06/04/saturday-to-coauthor-03-three-gradients-in-one-codebase.html) |
+| 4 | [The Walls](https://johnazariah.github.io/2026/06/08/saturday-to-coauthor-04-the-walls.html) |
+| 5 | [The Algebra That Runs Itself](https://johnazariah.github.io/2026/06/11/saturday-to-coauthor-05-the-algebra-that-runs-itself.html) |
+| 6 | [Eighteen Hundred Reasons](https://johnazariah.github.io/2026/06/15/saturday-to-coauthor-06-eighteen-hundred-reasons.html) |
+| 7 | [Learning from the Masters](https://johnazariah.github.io/2026/06/18/saturday-to-coauthor-07-learning-from-the-masters.html) |
+| 8 | [Fourteen](https://johnazariah.github.io/2026/06/22/saturday-to-coauthor-08-fourteen.html) |
+| 9 | [The Collaborator That Never Sleeps](https://johnazariah.github.io/2026/06/25/saturday-to-coauthor-09-the-collaborator-that-never-sleeps.html) |
+| 10 | [What Language Taught Us About Mathematics](https://johnazariah.github.io/2026/06/29/saturday-to-coauthor-10-what-language-taught-us-about-mathematics.html) |
 
-Think of it this way:
+---
 
-- **The Bottleneck posts** explain why a quantum idea appears.
-- **The notebooks** let you run the idea.
-- **The Circuit Bench** lets you slow down and inspect the circuit machinery.
+## Where the pieces fit
 
-That is the promise of this space: problem-first, runnable, and honest.
+- **The blog posts** (above) explain why a quantum idea appears and what it solves.
+- **The [Companion Notebooks](../bottleneck/index.md)** let you run the idea.
+- **The [Circuit Bench](../circuit-bench/index.md)** lets you slow down and inspect the circuit machinery.
 
-## Related: From Saturday to Co-Author
-
-Before this quantum sub-blog existed, a ten-part series on the [main blog](https://johnazariah.github.io) documented the journey from learning QAOA on a Saturday morning to co-authoring a quantum computing paper. The series covers Julia, QAOA, MaxCut, XORSAT, and the practical reality of turning a weekend experiment into a research contribution.
-
-The posts live on the main blog: [From Saturday to Co-Author — all ten posts](https://johnazariah.github.io/tags/from-saturday-to-coauthor/).
-
-1. [Saturday](https://johnazariah.github.io/2026/05/29/saturday-to-coauthor-01-saturday.html)
-2. [The Fold Under the Tree](https://johnazariah.github.io/2026/06/01/saturday-to-coauthor-02-the-fold-under-the-tree.html)
-3. [Three Gradients in One Codebase](https://johnazariah.github.io/2026/06/04/saturday-to-coauthor-03-three-gradients-in-one-codebase.html)
-4. [The Walls](https://johnazariah.github.io/2026/06/08/saturday-to-coauthor-04-the-walls.html)
-5. [The Algebra That Runs Itself](https://johnazariah.github.io/2026/06/11/saturday-to-coauthor-05-the-algebra-that-runs-itself.html)
-6. [Eighteen Hundred Reasons](https://johnazariah.github.io/2026/06/15/saturday-to-coauthor-06-eighteen-hundred-reasons.html)
-7. [Learning from the Masters](https://johnazariah.github.io/2026/06/18/saturday-to-coauthor-07-learning-from-the-masters.html)
-8. [Fourteen](https://johnazariah.github.io/2026/06/22/saturday-to-coauthor-08-fourteen.html)
-9. [The Collaborator That Never Sleeps](https://johnazariah.github.io/2026/06/25/saturday-to-coauthor-09-the-collaborator-that-never-sleeps.html)
-10. [What Language Taught Us About Mathematics](https://johnazariah.github.io/2026/06/29/saturday-to-coauthor-10-what-language-taught-us-about-mathematics.html)
+Problem-first. Runnable. Honest.
