@@ -1,5 +1,5 @@
 ---
-date: 2026-08-11
+date: 2026-08-05
 notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/03-drug-discovery.ipynb"
 categories:
   - The Quantum Bottleneck

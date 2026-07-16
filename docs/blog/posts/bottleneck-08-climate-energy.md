@@ -1,5 +1,5 @@
 ---
-date: 2026-09-15
+date: 2026-08-22
 notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/08-climate-energy.ipynb"
 categories:
   - The Quantum Bottleneck

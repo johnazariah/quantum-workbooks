@@ -1,5 +1,5 @@
 ---
-date: 2026-08-18
+date: 2026-08-08
 notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/04-machine-learning.ipynb"
 categories:
   - The Quantum Bottleneck
