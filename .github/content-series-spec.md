@@ -174,7 +174,7 @@ For each series, the assigned agent should:
 
 | Series | Status | Next action |
 |---|---|---|
-| Linear Algebra for Fun and Profit | Parts 1-2 live | Complete |
+| Linear Algebra for Fun and Profit | Parts 1-3 live (Part 3 scheduled Jul 21) | Complete |
 | The Quantum Bottleneck | 8 parts scheduled (Jul 28 – Aug 22, Tue+Fri) | Auto-publishes |
 | QAOA from Scratch | Spec written | Agent: read sources, propose abstracts |
 | Hidden Structure | Spec written | Agent: read sources, propose abstracts |
