@@ -60,7 +60,7 @@ In particular $H^k = \sum_n E_n^{\,k}\ket{n}\bra{n}$, the propagator is $e^{-iHt
 
 Finding $E_0$ looks like a search over an entire vector space. The variational principle turns it into a minimisation. A method is *variational* when it approximates the answer by optimising a quantity over a family of trial states. The quantity is the *Rayleigh quotient* of a nonzero trial vector $\ket{\psi}$,
 
-$$R(\psi) = \frac{\melem{\psi}{H}{\psi}}{\braket{\psi}{\psi}}.$$
+$$R(\psi) = \frac{\langle \psi \lvert H \rvert \psi \rangle}{\langle \psi | \psi \rangle}.$$
 
 Expand $\ket{\psi} = \sum_n c_n \ket{n}$ in the eigenbasis. Using $H\ket{n} = E_n\ket{n}$ and orthonormality,
 
@@ -76,7 +76,7 @@ $$E_0 = \min_{\psi \ne 0} R(\psi),$$
 
 an exact, proven statement, not a heuristic. Its practical half is the one we use constantly: any trial state gives an upper bound on the ground energy, $E_0 \le R(\psi)$, and a lower $R$ means a better state. Minimising the Rayleigh quotient is therefore a way to *search* for the ground state, and it is the engine behind several methods below, from Rayleigh-quotient iteration to the variational quantum eigensolver in Part 4.
 
-**On example A.** Try the site state $\ket{0} = (1,0)^T$: $R(\ket{0}) = \melem{0}{H}{0} = H_{00} = 2$, an upper bound on $E_0 = 1$. Try $\ket{-}$: $R(\ket{-}) = 1 = E_0$, the exact minimum. Sweeping the real trial states $\ket{\psi(\theta)} = \cos\theta\,\ket{0} + \sin\theta\,\ket{1}$ gives the closed form $R(\theta) = 2 + \sin 2\theta$: its minimum $1$ at $\theta = 3\pi/4$ is the ground state $\ket{-}$, and its maximum $3$ at $\theta = \pi/4$ is $\ket{+}$.
+**On example A.** Try the site state $\lvert 0\rangle = (1,0)^T$: $R(\lvert 0\rangle) = \langle 0 \lvert H \rvert 0 \rangle = H_{00} = 2$, an upper bound on $E_0 = 1$. Try $\lvert -\rangle$: $R(\lvert -\rangle) = 1 = E_0$, the exact minimum. Sweeping the real trial states $\lvert\psi(\theta)\rangle = \cos\theta\,\lvert 0\rangle + \sin\theta\,\lvert 1\rangle$ gives the closed form $R(\theta) = 2 + \sin 2\theta$: its minimum $1$ at $\theta = 3\pi/4$ is the ground state $\lvert -\rangle$, and its maximum $3$ at $\theta = \pi/4$ is $\lvert +\rangle$.
 
 ![The variational principle on example A: the Rayleigh quotient over real trial states has the closed form R of theta equals 2 plus sin 2 theta. Every trial state lies at or above the ground energy 1, with the minimum at the ground state and the maximum at the plus state.](lafp02-rayleigh.png)
 
@@ -138,7 +138,7 @@ $$e^{-H\tau} = \sum_n e^{-E_n\tau}\ket{n}\bra{n},$$
 
 the same stretch operator with a real exponent. Each eigencomponent is damped by $e^{-E_n\tau}$, so the *lowest* eigenvalue is damped the least and, after renormalising, takes over:
 
-$$\ket{\psi(\tau)} = \frac{e^{-H\tau}\ket{\psi_0}}{\lVert e^{-H\tau}\ket{\psi_0}\rVert} \;\xrightarrow[\ \tau\to\infty\ ]{}\; \ket{0}, \qquad \text{provided } \braket{0}{\psi_0} \ne 0.$$
+$$\lvert\psi(\tau)\rangle = \frac{e^{-H\tau}\lvert\psi_0\rangle}{\lVert e^{-H\tau}\lvert\psi_0\rangle\rVert} \;\xrightarrow[\ \tau\to\infty\ ]{}\; \lvert 0\rangle, \qquad \text{provided } \langle 0 | \psi_0 \rangle \ne 0.$$
 
 This is power iteration again, now continuous and aimed at the ground state: where power iteration applied a growing *power* $H^k$ to reach the dominant eigenvector, imaginary time applies a growing *exponential* $e^{-H\tau}$ to reach the lowest. The two are one idea, the $i$-free stretch, discrete and continuous.
 

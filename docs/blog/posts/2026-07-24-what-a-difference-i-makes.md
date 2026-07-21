@@ -54,7 +54,7 @@ The variational quantum eigensolver (VQE)[^peruzzo2014][^mcclean2016] marries th
 
 **The loop.** Choose a parameterised circuit, the *ansatz*, preparing $\ket{\psi(\theta)} = U(\theta)\ket{\psi_0}$, then repeat:
 
-1. on the quantum device, estimate the energy $E(\theta) = \melem{\psi(\theta)}{H}{\psi(\theta)}$ by measuring each term of $H = \sum_a c_a P_a$ and combining;
+1. on the quantum device, estimate the energy $E(\theta) = \langle \psi(\theta) \lvert H \rvert \psi(\theta) \rangle$ by measuring each term of $H = \sum_a c_a P_a$ and combining;
 2. a classical optimiser proposes parameters $\theta$ that lower $E(\theta)$;
 3. stop when the energy stops improving.
 
