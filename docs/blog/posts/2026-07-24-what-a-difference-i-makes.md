@@ -7,6 +7,12 @@ tags:
   - quantum computing
 authors:
   - John Azariah
+social:
+  linkedin: |
+    The classical eigensolvers in Part 3 all stretch: they apply functions of the operator with real exponents to amplify an extremal eigenvector. Insert a single factor of i and stretching becomes rotation. Eigenvalues move onto the unit circle, lengths are preserved, and a quantum computer can run the evolution natively. That is the entire content of quantum phase estimation, the variational quantum eigensolver, and adiabatic state preparation. Four posts, one idea: the spectral theorem is the load-bearing structure under web search, portfolio risk, molecular simulation, and every eigensolver classical or quantum. The difference between the classical half and the quantum half is one letter.
+
+    #QuantumComputing #LinearAlgebra
+  bluesky: "Part 4 closes the series. Insert i into the exponent and stretch becomes rotation. QPE, VQE, adiabatic prep: all one move. Same spectral theorem, one letter apart."
 ---
 
 # What a Difference `i` Makes
