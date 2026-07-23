@@ -1,15 +1,21 @@
 ---
 date: 2026-07-28
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/01-logistics.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/01-logistics.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Optimisation
+- The Quantum Bottleneck
+- Optimisation
 tags:
-  - QAOA
-  - MaxCut
-  - combinatorial optimisation
+- QAOA
+- MaxCut
+- combinatorial optimisation
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'A delivery company''s route optimisation is worth tens of millions a year. The notebook solves a triangle. That gap is the point. This is the first post in The Quantum Bottleneck, an eight-part series that takes real-world problems, codes up the smallest quantum version that actually runs, and asks honestly: where is the bottleneck, and does a quantum computer help? First up: logistics and QAOA.
+
+
+    #QuantumComputing #Logistics'
+  bluesky: 'New series: The Quantum Bottleneck. Eight real-world problems, each with a runnable notebook. Post 1: logistics route optimisation. The notebook solves a triangle. The problem is worth $50M. That gap is the point.'
 ---
 
 # The $50M Delivery Route

@@ -1,17 +1,23 @@
 ---
 date: 2026-08-01
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/02-cryptography.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/02-cryptography.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Cryptography
+- The Quantum Bottleneck
+- Cryptography
 tags:
-  - Shor's algorithm
-  - period-finding
-  - RSA
-  - QFT
-  - quantum phase estimation
+- Shor's algorithm
+- period-finding
+- RSA
+- QFT
+- quantum phase estimation
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'The notebook factors 15. The problem is the cryptographic machinery that keeps the internet standing. Shor''s algorithm threatens RSA not by brute force but by turning factoring into period-finding, and period-finding into phase estimation. This post walks through the circuit, the quantum Fourier transform, and the honest gap between a toy demonstration and a real cryptographic threat.
+
+
+    #QuantumComputing #Cryptography'
+  bluesky: 'Bottleneck 02: The Trapdoor. The notebook factors 15. The problem is RSA. Shor''s algorithm turns factoring into period-finding, and the gap between 15 and a real key is the bottleneck.'
 ---
 
 # The Trapdoor

@@ -14,98 +14,99 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Find posts going live today
-        id: find
-        run: |
-          today=$(date -u +%Y-%m-%d)
-          echo "today=$today"
-          posts=$(find docs/blog/posts -name "${today}-*.md" -type f 2>/dev/null || true)
-          if [ -z "$posts" ]; then
-            echo "No posts for today ($today)"
-            echo "found=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "Found posts for $today:"
-            echo "$posts"
-            echo "found=true" >> "$GITHUB_OUTPUT"
-            echo "posts<<EOF" >> "$GITHUB_OUTPUT"
-            echo "$posts" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
-          fi
+      - name: Install dependencies
+        run: pip install pyyaml -q
 
-      - name: Check syndication cache
-        if: steps.find.outputs.found == 'true'
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: .syndicated
-          key: syndicated-${{ steps.find.outputs.today || 'none' }}
-          restore-keys: syndicated-
-
-      - name: Post to LinkedIn
-        if: steps.find.outputs.found == 'true'
+      - name: Find and syndicate today's posts
         env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
-          POSTS: ${{ steps.find.outputs.posts }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
         run: |
-          pip install pyyaml -q
           python3 << 'SCRIPT'
-          import yaml, json, os, urllib.request, re, sys
+          import yaml, json, os, urllib.request, re, sys, glob
+          from datetime import date, timezone, datetime
 
-          posts_raw = os.environ.get("POSTS", "").strip()
-          if not posts_raw:
-              print("No posts to syndicate")
-              sys.exit(0)
+          today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+          print(f"Looking for posts dated: {today}")
 
-          posts = [p for p in posts_raw.split("\n") if p.strip()]
-          token = os.environ["LINKEDIN_ACCESS_TOKEN"]
-          person_urn = os.environ["LINKEDIN_PERSON_URN"]
+          token = os.environ.get("LINKEDIN_ACCESS_TOKEN", "")
+          person_urn = os.environ.get("LINKEDIN_PERSON_URN", "")
 
-          # Load already-syndicated slugs
-          syndicated_file = ".syndicated"
-          syndicated = set()
-          if os.path.exists(syndicated_file):
-              syndicated = set(open(syndicated_file).read().strip().split("\n"))
+          if not token or not person_urn:
+              print("❌ LinkedIn credentials not configured")
+              sys.exit(1)
 
-          for post_path in posts:
-              # Derive slug from filename
-              filename = os.path.basename(post_path)
-              date_part = filename[:10]
-              slug = filename[11:].replace(".md", "")
-
-              if slug in syndicated:
-                  print(f"⏭️  Already syndicated: {slug}")
-                  continue
-
-              # Read file
+          # Find all posts with today's date in front matter
+          posts_to_syndicate = []
+          for post_path in sorted(glob.glob("docs/blog/posts/*.md")):
               with open(post_path) as f:
                   content = f.read()
-
-              # Parse YAML front matter
               if not content.startswith("---"):
-                  print(f"⚠️  No front matter in {post_path}, skipping")
                   continue
               parts = content.split("---", 2)
               if len(parts) < 3:
                   continue
-              fm = yaml.safe_load(parts[1])
-              body = parts[2]
+              try:
+                  fm = yaml.safe_load(parts[1])
+              except yaml.YAMLError:
+                  continue
+              post_date = fm.get("date", "")
+              if hasattr(post_date, "strftime"):
+                  post_date = post_date.strftime("%Y-%m-%d")
+              else:
+                  post_date = str(post_date)
+              if post_date == today:
+                  posts_to_syndicate.append((post_path, fm, parts[2]))
 
-              # Get LinkedIn hook from front matter
+          if not posts_to_syndicate:
+              print(f"No posts for today ({today})")
+              sys.exit(0)
+
+          print(f"Found {len(posts_to_syndicate)} post(s) for today")
+
+          # Load syndication cache
+          cache_file = "/tmp/syndicated.txt"
+          # Use GitHub Actions cache via environment
+          state_file = ".github/.syndicated"
+          syndicated = set()
+          if os.path.exists(state_file):
+              syndicated = set(open(state_file).read().strip().split("\n"))
+
+          for post_path, fm, body in posts_to_syndicate:
+              # Get LinkedIn hook
               social = fm.get("social", {}) or {}
               linkedin_hook = social.get("linkedin", "").strip()
               if not linkedin_hook:
                   print(f"⚠️  No social.linkedin in {post_path}, skipping")
                   continue
 
+              # Derive slug from filename
+              filename = os.path.basename(post_path).replace(".md", "")
+              # Strip date prefix if present (e.g., 2026-07-24-slug -> slug)
+              if re.match(r"\d{4}-\d{2}-\d{2}-", filename):
+                  slug = filename[11:]
+              else:
+                  slug = filename
+
+              if slug in syndicated:
+                  print(f"⏭️  Already syndicated: {slug}")
+                  continue
+
               # Extract title from first H1
               title_match = re.search(r"^#\s+(.+)$", body, re.MULTILINE)
               title = title_match.group(1).strip() if title_match else slug.replace("-", " ").title()
-              # Clean markdown from title
-              title = re.sub(r'[`*_]', '', title)
+              title = re.sub(r"[`*_]", "", title)
 
               # Build URL
-              year, month, day = date_part.split("-")
+              post_date = fm.get("date", "")
+              if hasattr(post_date, "strftime"):
+                  year = post_date.strftime("%Y")
+                  month = post_date.strftime("%m")
+                  day = post_date.strftime("%d")
+              else:
+                  year, month, day = str(post_date).split("-")
               url = f"https://johnazariah.github.io/quantum/blog/{year}/{month}/{day}/{slug}/"
 
               # Build LinkedIn post payload
@@ -146,22 +147,29 @@ jobs:
                   print(f"   URL: {url}")
                   syndicated.add(slug)
               except urllib.error.HTTPError as e:
-                  body_err = e.read().decode()
+                  err_body = e.read().decode()
                   print(f"❌ LinkedIn failed for {slug}: {e.code}")
-                  print(f"   {body_err}")
-                  sys.exit(1)
+                  print(f"   {err_body}")
+                  # Don't exit on failure — try remaining posts
+                  continue
 
           # Save syndication state
-          with open(syndicated_file, "w") as f:
-              f.write("\n".join(sorted(syndicated)))
+          os.makedirs(os.path.dirname(state_file), exist_ok=True)
+          with open(state_file, "w") as f:
+              f.write("\n".join(sorted(s for s in syndicated if s)))
+
+          # TODO: Bluesky syndication when credentials available
+          bsky_handle = os.environ.get("BLUESKY_HANDLE", "")
+          bsky_pass = os.environ.get("BLUESKY_APP_PASSWORD", "")
+          if bsky_handle and bsky_pass:
+              print("\n--- Bluesky syndication not yet implemented ---")
           SCRIPT
 
-      - name: Post to Bluesky
-        if: steps.find.outputs.found == 'true' && secrets.BLUESKY_APP_PASSWORD != ''
-        env:
-          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
-          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-          POSTS: ${{ steps.find.outputs.posts }}
+      - name: Commit syndication state
         run: |
-          echo "Bluesky syndication not yet configured — skipping"
-          # TODO: implement when credentials are available
+          if [ -f .github/.syndicated ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .github/.syndicated
+            git diff --cached --quiet || git commit -m "chore: update syndication state [skip ci]" && git push
+          fi

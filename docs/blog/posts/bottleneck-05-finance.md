@@ -1,16 +1,22 @@
 ---
 date: 2026-08-12
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/05-finance.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/05-finance.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Finance
+- The Quantum Bottleneck
+- Finance
 tags:
-  - Monte Carlo
-  - quantum amplitude estimation
-  - option pricing
-  - phase estimation
+- Monte Carlo
+- quantum amplitude estimation
+- option pricing
+- phase estimation
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'Finance runs on Monte Carlo. Option prices, value-at-risk, stress tests: all computed by averaging over many possible futures. Every extra digit of accuracy quadruples the computation. Quantum amplitude estimation promises a quadratic speedup on that convergence rate. This post runs a small option pricing circuit and asks what stands between a toy demo and a real trading desk.
+
+
+    #QuantumComputing #Finance'
+  bluesky: 'Bottleneck 05: The Convergence Wall. Classical Monte Carlo needs 100x more samples for each extra digit. Quantum amplitude estimation promises quadratic speedup. The bottleneck is everything in between.'
 ---
 
 # The Convergence Wall

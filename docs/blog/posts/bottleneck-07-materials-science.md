@@ -1,17 +1,23 @@
 ---
 date: 2026-08-19
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/07-materials-science.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/07-materials-science.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Materials Science
+- The Quantum Bottleneck
+- Materials Science
 tags:
-  - Hubbard model
-  - quantum simulation
-  - phase estimation
-  - materials science
-  - strongly correlated systems
+- Hubbard model
+- quantum simulation
+- phase estimation
+- materials science
+- strongly correlated systems
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'The materials we care about most are the awkward ones: catalysts, superconductors, battery cathodes. Their behaviour comes from strongly correlated electrons, and that is exactly where classical approximations become fragile. The Hubbard model is the standard test case. This post runs a small quantum simulation and asks how far we are from materials that matter.
+
+
+    #QuantumComputing #MaterialsScience'
+  bluesky: 'Bottleneck 07: The Materials Maze. Strongly correlated electrons make materials hard to simulate classically. The Hubbard model is the test case. This post asks how far we are.'
 ---
 
 # The Materials Maze

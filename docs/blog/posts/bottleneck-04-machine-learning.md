@@ -1,16 +1,22 @@
 ---
 date: 2026-08-08
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/04-machine-learning.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/04-machine-learning.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Machine Learning
+- The Quantum Bottleneck
+- Machine Learning
 tags:
-  - quantum kernels
-  - SVM
-  - feature maps
-  - dequantisation
+- quantum kernels
+- SVM
+- feature maps
+- dequantisation
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'Machine learning works by moving data into a richer feature space. Quantum machine learning asks: what if the useful feature space is naturally quantum and classically awkward to compute? This post looks at quantum kernels, SVMs, and the dequantisation results that put a ceiling on the quantum speedup claims. The Netflix Prize is still a useful parable.
+
+
+    #QuantumComputing #MachineLearning'
+  bluesky: 'Bottleneck 04: The Feature Explosion. Quantum kernels promise richer feature spaces. Dequantisation results say: not so fast. This post walks through the honest gap.'
 ---
 
 # The Feature Explosion

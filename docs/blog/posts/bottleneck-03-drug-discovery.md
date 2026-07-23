@@ -1,16 +1,22 @@
 ---
 date: 2026-08-05
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/03-drug-discovery.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/03-drug-discovery.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Drug Discovery
+- The Quantum Bottleneck
+- Drug Discovery
 tags:
-  - VQE
-  - molecular simulation
-  - quantum chemistry
-  - electronic structure
+- VQE
+- molecular simulation
+- quantum chemistry
+- electronic structure
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'Getting a drug to market costs roughly $2B, and a substantial fraction goes to molecular screening. Before a molecule reaches a clinical trial, we often do not know enough about how its electrons behave. VQE promises to compute electronic structure on a quantum computer, but the gap between a hydrogen molecule on a simulator and a real drug candidate is vast. This post walks through both sides honestly.
+
+
+    #QuantumComputing #DrugDiscovery'
+  bluesky: 'Bottleneck 03: The $2B Molecule. VQE computes electronic structure for drug candidates, but the gap between a hydrogen molecule on a simulator and a real drug is the bottleneck.'
 ---
 
 # The $2B Molecule

@@ -1,17 +1,23 @@
 ---
 date: 2026-08-22
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/08-climate-energy.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/08-climate-energy.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Climate & Energy
+- The Quantum Bottleneck
+- Climate & Energy
 tags:
-  - quantum embedding
-  - VQE
-  - catalysis
-  - active spaces
-  - climate tech
+- quantum embedding
+- VQE
+- catalysis
+- active spaces
+- climate tech
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'The energy transition needs better catalysts for water splitting, CO2 reduction, nitrogen fixation, and battery chemistry. Catalyst design is an electronic-structure problem in disguise. This final post in The Quantum Bottleneck runs a VQE calculation on a small active space and closes the series with an honest assessment: quantum computing is not a shortcut past chemistry, but it may be the only path through certain problems classical computers cannot reach.
+
+
+    #QuantumComputing #ClimateTech'
+  bluesky: 'Bottleneck 08: The Catalyst Bottleneck. Climate tech needs better catalysts. Catalyst design is electronic structure in disguise. The series closer asks honestly: where does quantum computing fit?'
 ---
 
 # The Catalyst Bottleneck

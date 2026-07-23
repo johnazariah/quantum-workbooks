@@ -1,17 +1,23 @@
 ---
 date: 2026-08-15
-notebook: "https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/06-supply-chains.ipynb"
+notebook: https://github.com/johnazariah/quantum/blob/main/bottleneck/notebooks/06-supply-chains.ipynb
 categories:
-  - The Quantum Bottleneck
-  - Supply Chains
+- The Quantum Bottleneck
+- Supply Chains
 tags:
-  - QAOA
-  - QUBO
-  - scheduling
-  - logistics
-  - combinatorial optimisation
+- QAOA
+- QUBO
+- scheduling
+- logistics
+- combinatorial optimisation
 authors:
-  - John Azariah
+- John Azariah
+social:
+  linkedin: 'Assign nurses to shifts. Route trucks through depots. Match jobs to machines. These are not smooth optimisation problems; they are combinatorial, and a decision is yes or no. QAOA encodes them as QUBO problems and searches for the optimal assignment. This post walks through the encoding, the circuit, and the gap between satisfying a few constraints and solving a real scheduling problem.
+
+
+    #QuantumComputing #Optimisation'
+  bluesky: 'Bottleneck 06: The Scheduling Nightmare. Supply chains are webs of discrete choices. QAOA attacks them as QUBO problems. The post walks through the gap between a toy schedule and a real one.'
 ---
 
 # The Scheduling Nightmare
