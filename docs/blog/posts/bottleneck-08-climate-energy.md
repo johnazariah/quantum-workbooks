@@ -105,4 +105,4 @@ The [companion notebook](https://github.com/johnazariah/quantum/blob/main/bottle
 
 ---
 
-*This is Unit 8 of The Quantum Bottleneck series. Return to the [series overview](../index.md) for the full companion path.*
+*This is Unit 8 of The Quantum Bottleneck series. Return to the [series overview](../../bottleneck/index.md) for the full companion path.*

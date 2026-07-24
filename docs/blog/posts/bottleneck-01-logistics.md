@@ -98,7 +98,7 @@ The useful word is **interference**.
 
 A quantum algorithm is useful when it arranges the computation so that unwanted possibilities cancel and wanted possibilities reinforce. The possibilities being "present" is not enough. Their amplitudes have to be made to interfere in the right way before measurement.
 
-QAOA, the **Quantum Approximate Optimization Algorithm**, is one attempt to do that for optimisation problems. It does not guarantee the optimum. It does not make NP-hardness evaporate. It produces a probability distribution over candidate answers, and the hope is that good answers appear more often than they would under blind random sampling.
+QAOA, the **Quantum Approximate Optimisation Algorithm**, is one attempt to do that for optimisation problems. It does not guarantee the optimum. It does not make NP-hardness evaporate. It produces a probability distribution over candidate answers, and the hope is that good answers appear more often than they would under blind random sampling.
 
 That sounds modest because it is modest. It is also the honest claim, and it is the claim the notebook is designed to make visible.
 

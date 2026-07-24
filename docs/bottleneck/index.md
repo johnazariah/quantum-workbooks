@@ -19,8 +19,8 @@ Each notebook implements (or illustrates) the algorithm from its corresponding b
 | 4 | Machine Learning | Quantum vs. classical kernel SVM | [The Feature Explosion](../blog/posts/bottleneck-04-machine-learning.md) |
 | 5 | Finance | Classical pricing + toy amplitude estimation | [The Convergence Wall](../blog/posts/bottleneck-05-finance.md) |
 | 6 | Supply Chains | Nurse scheduling QUBO micro-example | [The Scheduling Nightmare](../blog/posts/bottleneck-06-supply-chains.md) |
-| 7 | Materials Science | Hubbard benchmark and toy QPE | [The Unsimulable Material](../blog/posts/bottleneck-07-materials-science.md) |
-| 8 | Climate & Energy | Embedding pipeline illustration for catalyst screening | [The Better Catalyst](../blog/posts/bottleneck-08-climate-energy.md) |
+| 7 | Materials Science | Hubbard benchmark and toy QPE | [The Materials Maze](../blog/posts/bottleneck-07-materials-science.md) |
+| 8 | Climate & Energy | Embedding pipeline illustration for catalyst screening | [The Catalyst Bottleneck](../blog/posts/bottleneck-08-climate-energy.md) |
 
 ## Running locally
 
