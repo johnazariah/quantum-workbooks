@@ -205,6 +205,12 @@ jobs:
                   print(f"❌ Auth failed: {e.code} {e.read().decode()}")
                   bsky_token = None
 
+              # Load thread state (series → root/latest post refs)
+              threads_file = ".github/.bsky-threads.json"
+              threads = {}
+              if os.path.exists(threads_file):
+                  threads = json.loads(open(threads_file).read())
+
               if bsky_token:
                   for post_path, fm, body in posts_to_syndicate:
                       social = fm.get("social", {}) or {}
@@ -243,6 +249,17 @@ jobs:
                           }
                       }
 
+                      # Thread support: if post belongs to a series, reply to previous
+                      categories = fm.get("categories", [])
+                      series_name = categories[0] if categories else None
+                      if series_name and series_name in threads:
+                          thread = threads[series_name]
+                          record["reply"] = {
+                              "root": {"uri": thread["root"]["uri"], "cid": thread["root"]["cid"]},
+                              "parent": {"uri": thread["latest"]["uri"], "cid": thread["latest"]["cid"]}
+                          }
+                          print(f"  ↳ Threading under: {series_name}")
+
                       bsky_payload = json.dumps({
                           "repo": bsky_did,
                           "collection": "app.bsky.feed.post",
@@ -258,11 +275,34 @@ jobs:
                           method="POST"
                       )
                       try:
-                          urllib.request.urlopen(req)
+                          resp = urllib.request.urlopen(req)
+                          result = json.loads(resp.read())
+                          post_uri = result.get("uri", "")
+                          post_cid = result.get("cid", "")
                           print(f"✅ {slug}")
                           syndicated.add(key)
+
+                          # Update thread state
+                          if series_name:
+                              if series_name not in threads:
+                                  # First post in series = root
+                                  threads[series_name] = {
+                                      "root": {"uri": post_uri, "cid": post_cid},
+                                      "latest": {"uri": post_uri, "cid": post_cid}
+                                  }
+                                  print(f"  📌 Thread root for: {series_name}")
+                              else:
+                                  threads[series_name]["latest"] = {"uri": post_uri, "cid": post_cid}
                       except urllib.error.HTTPError as e:
                           print(f"❌ {slug}: {e.code} {e.read().decode()}")
+
+              # Save thread state
+              os.makedirs(os.path.dirname(threads_file), exist_ok=True)
+              with open(threads_file, "w") as f:
+                  json.dump(threads, f, indent=2)
+          else:
+              if not bsky_handle or not bsky_pass:
+                  print("\n⚠️  Bluesky credentials not configured, skipping")
 
           # Save state
           os.makedirs(os.path.dirname(state_file), exist_ok=True)
@@ -272,9 +312,7 @@ jobs:
 
       - name: Commit syndication state
         run: |
-          if [ -f .github/.syndicated ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add .github/.syndicated
-            git diff --cached --quiet || (git commit -m "chore: update syndication state [skip ci]" && git push)
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/.syndicated .github/.bsky-threads.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "chore: update syndication state [skip ci]" && git push)
