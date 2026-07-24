@@ -158,11 +158,105 @@ jobs:
           with open(state_file, "w") as f:
               f.write("\n".join(sorted(s for s in syndicated if s)))
 
-          # TODO: Bluesky syndication when credentials available
+          # --- Bluesky syndication ---
           bsky_handle = os.environ.get("BLUESKY_HANDLE", "")
           bsky_pass = os.environ.get("BLUESKY_APP_PASSWORD", "")
           if bsky_handle and bsky_pass:
-              print("\n--- Bluesky syndication not yet implemented ---")
+              print("\n--- Bluesky ---")
+              # Authenticate
+              auth_payload = json.dumps({
+                  "identifier": bsky_handle,
+                  "password": bsky_pass
+              }).encode()
+              auth_req = urllib.request.Request(
+                  "https://bsky.social/xrpc/com.atproto.server.createSession",
+                  data=auth_payload,
+                  headers={"Content-Type": "application/json"},
+                  method="POST"
+              )
+              try:
+                  auth_resp = urllib.request.urlopen(auth_req)
+                  auth_data = json.loads(auth_resp.read())
+                  bsky_token = auth_data["accessJwt"]
+                  bsky_did = auth_data["did"]
+              except urllib.error.HTTPError as e:
+                  print(f"❌ Bluesky auth failed: {e.code} {e.read().decode()}")
+                  sys.exit(0)  # Don't fail the workflow for Bluesky issues
+
+              for post_path, fm, body in posts_to_syndicate:
+                  social = fm.get("social", {}) or {}
+                  bsky_text = social.get("bluesky", "").strip()
+                  if not bsky_text:
+                      continue
+
+                  filename = os.path.basename(post_path).replace(".md", "")
+                  if re.match(r"\d{4}-\d{2}-\d{2}-", filename):
+                      slug = filename[11:]
+                  else:
+                      slug = filename
+
+                  # Build URL
+                  post_date = fm.get("date", "")
+                  if hasattr(post_date, "strftime"):
+                      year, month, day = post_date.strftime("%Y"), post_date.strftime("%m"), post_date.strftime("%d")
+                  else:
+                      year, month, day = str(post_date).split("-")
+                  url = f"https://johnazariah.github.io/quantum/blog/{year}/{month}/{day}/{slug}/"
+
+                  # Append link to text
+                  full_text = f"{bsky_text}\n\n{url}"
+
+                  # Detect URL facet for rich link
+                  url_start = len(full_text.encode("utf-8")) - len(url.encode("utf-8"))
+                  url_end = len(full_text.encode("utf-8"))
+
+                  # Build Bluesky post record
+                  now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+                  record = {
+                      "$type": "app.bsky.feed.post",
+                      "text": full_text,
+                      "createdAt": now_iso,
+                      "facets": [{
+                          "index": {"byteStart": url_start, "byteEnd": url_end},
+                          "features": [{
+                              "$type": "app.bsky.richtext.facet#link",
+                              "uri": url
+                          }]
+                      }],
+                      "embed": {
+                          "$type": "app.bsky.embed.external",
+                          "external": {
+                              "uri": url,
+                              "title": re.sub(r"[`*_]", "", (re.search(r"^#\s+(.+)$", body, re.MULTILINE) or type("",(),{"group":lambda s,n:slug})()).group(1)),
+                              "description": bsky_text[:200]
+                          }
+                      }
+                  }
+
+                  bsky_payload = json.dumps({
+                      "repo": bsky_did,
+                      "collection": "app.bsky.feed.post",
+                      "record": record
+                  }).encode()
+                  bsky_req = urllib.request.Request(
+                      "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+                      data=bsky_payload,
+                      headers={
+                          "Content-Type": "application/json",
+                          "Authorization": f"Bearer {bsky_token}",
+                      },
+                      method="POST"
+                  )
+                  try:
+                      bsky_resp = urllib.request.urlopen(bsky_req)
+                      print(f"✅ Bluesky posted: {slug}")
+                  except urllib.error.HTTPError as e:
+                      err_body = e.read().decode()
+                      print(f"❌ Bluesky failed for {slug}: {e.code}")
+                      print(f"   {err_body}")
+          else:
+              if not bsky_handle or not bsky_pass:
+                  print("\n⚠️  Bluesky credentials not configured, skipping")
           SCRIPT
 
       - name: Commit syndication state
