@@ -31,7 +31,7 @@ social:
 
 ## Three matrices, one theorem
 
-Every application in this post reduces to the same question: *what are the eigenvalues and eigenvectors of a particular matrix?* The matrix changes — a link graph, a covariance table, a molecular Hamiltonian. The scale changes — millions of web pages, thousands of stocks, dozens of qubits. The tool changes — power iteration, SVD, VQE. But the spectral theorem is always the engine, and the eigenvectors are always the answer.
+Every application in this post reduces to the same question: *what are the eigenvalues and eigenvectors of a particular matrix?* The matrix changes — a link graph, a covariance table, a molecular Hamiltonian. The scale changes — millions of web pages, thousands of stocks, dozens of electrons. The tool changes — power iteration, the singular value decomposition (SVD), and the variational quantum eigensolver (VQE). But the spectral theorem is always the engine, and the eigenvectors are always the answer.
 
 ---
 
@@ -83,7 +83,7 @@ $$H = \sum_{pq} h_{pq} \, a_p^\dagger a_q + \frac{1}{2} \sum_{pqrs} h_{pqrs} \, 
 
 Mapped to qubits (via Jordan-Wigner or Bravyi-Kitaev encoding), this becomes a sum of Pauli strings. The ground-state energy $E_0$ is the smallest eigenvalue. It is a real number because $H$ is Hermitian — that is the spectral theorem doing its work: real eigenvalues, orthogonal eigenstates, and the variational principle that says any trial state gives an upper bound.
 
-On a classical computer the options are: full configuration interaction (exact diagonalisation, exponential cost), coupled cluster (approximate, polynomial cost, gold standard for weakly correlated systems), and density functional theory (mean-field, fast, less accurate for strongly correlated systems). These are all eigensolvers or approximations to eigensolvers, and they all hit the memory wall at some molecule size. On a quantum computer: VQE for near-term devices or QPE for fault-tolerant ones. Parts 3 and 4 survey both sides in detail.
+On a classical computer the options are: full configuration interaction (exact diagonalisation, exponential cost), coupled cluster (approximate, polynomial cost, gold standard for weakly correlated systems), and density functional theory (mean-field, fast, less accurate for strongly correlated systems). These are all eigensolvers or approximations to eigensolvers, and they all hit the memory wall at some molecule size. On a quantum computer: VQE for near-term devices or QPE (quantum phase estimation) for fault-tolerant ones. Parts 3 and 4 survey both sides in detail.
 
 The global pharmaceutical market spends roughly \$250B per year on R&D[^pharma2024]. If quantum eigensolvers can handle strongly correlated molecules that classical methods cannot — transition-metal catalysts, metalloenzymes, excited states in photovoltaics — the value is not in replacing classical chemistry but in reaching systems that are currently intractable. The same Hamiltonian eigenproblem governs materials science (band structures, superconductors), catalysis (nitrogen fixation, CO$_2$ reduction), and nuclear physics (shell-model Hamiltonians). In each case the ground-state energy is the quantity of interest, and the Hilbert-space dimension is the wall.
 
@@ -97,7 +97,7 @@ That said: no quantum computer has yet computed a molecular energy that a classi
 |---|---|---|---|---|---|
 | web search | link matrix $A$ | importance scores | 1 (stochastic) | power iteration | \$100B+ company |
 | risk management | covariance $\Sigma$ | hidden risk factor | variance explained | SVD / PCA | hedge 500 stocks with 10 trades |
-| molecular simulation | Hamiltonian $H$ | ground state $\lvert 0\rangle$ | binding energy $E_0$ | VQE / QPE | reach intractable molecules |
+| molecular simulation | Hamiltonian $H$ | ground state $\lvert E_0\rangle$ | binding energy $E_0$ | VQE / QPE | reach intractable molecules |
 
 Three different matrices, three different industries, three different scales. The spectral theorem is the same in every row. The eigenvalues are always real because the matrices are always Hermitian (or symmetric, the real case). The eigenvectors always form an orthonormal basis that reveals hidden structure — importance, risk factors, quantum states.
 

@@ -36,7 +36,7 @@ $$H = \sum_n E_n \ket{n}\bra{n}.$$
 
 Solving the eigenproblem means finding this decomposition, or the part of it one cares about. An *eigensolver* is any procedure that approximates some of the pairs $(E_n, \ket{n})$, most often the lowest one.
 
-**The ground state.** Order the eigenvalues $E_0 \le E_1 \le \cdots$. The lowest eigenvalue $E_0$ is the *ground energy* and its eigenvector $\ket{0}$ the *ground state*. The names are from physics, where $H$ is an energy and the lowest-energy configuration is the one a cold system settles into. Most of this post concerns one narrowed request: find $E_0$ and $\ket{0}$.
+**The ground state.** Order the eigenvalues $E_0 \le E_1 \le \cdots$. The lowest eigenvalue $E_0$ is the *ground energy* and its eigenvector $\ket{E_0}$ the *ground state*. The names are from physics, where $H$ is an energy and the lowest-energy configuration is the one a cold system settles into. Most of this post concerns one narrowed request: find $E_0$ and $\ket{E_0}$.
 
 **Running example A: an abstract two-level system.** Consider
 
@@ -44,11 +44,11 @@ $$H = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}, \qquad \ket{+} = \tfrac{1}{\
 
 whose eigenvectors are $\ket{+}$ and $\ket{-}$ with eigenvalues $3$ and $1$. The ground state is $\ket{-}$ with $E_0 = 1$, not $\ket{+}$; the ground state is the *lowest*, and $1 < 3$. This example is small enough that every method can be checked by hand.
 
-**Running example B: the antiferromagnetic Heisenberg interaction.** The physical example carried throughout is the two-spin Heisenberg interaction, a standard, exactly solvable model of two coupled spin-$\tfrac12$ particles,
+**Running example B: the antiferromagnetic Heisenberg interaction.** The physical example carried throughout is the two-spin Heisenberg interaction, a standard, exactly solvable model of two coupled spin-$\tfrac12$ particles, built from the Pauli matrices $X, Y, Z$:
 
-$$H_{\mathrm{Heis}} = XX + YY + ZZ \equiv X\otimes X + Y\otimes Y + Z\otimes Z,$$
+$$H_{\mathrm{Heis}} = XX + YY + ZZ \equiv X\otimes X + Y\otimes Y + Z\otimes Z.$$
 
-built from the Pauli matrices $X, Y, Z$. It is exactly solvable through one identity, $XX + YY + ZZ = 2\,\mathrm{SWAP} - I$, where SWAP exchanges the two qubits. SWAP has eigenvalue $+1$ on states symmetric under exchange and $-1$ on antisymmetric states, so
+It is exactly solvable through one identity, $XX + YY + ZZ = 2\,\mathrm{SWAP} - I$, where SWAP exchanges the two spins, $\mathrm{SWAP}\ket{ab} = \ket{ba}$. SWAP has eigenvalue $+1$ on states symmetric under exchange and $-1$ on antisymmetric states, so
 
 $$H_{\mathrm{Heis}} = \begin{cases} +1 & \text{on the symmetric triplet (three states),} \\ -3 & \text{on the antisymmetric singlet } \ket{s} = \tfrac{1}{\sqrt2}(\ket{01} - \ket{10}). \end{cases}$$
 
@@ -88,11 +88,11 @@ an exact, proven statement, not a heuristic. Its practical half is the one we us
 
 ## Why the ground state, and why the dimension makes it hard
 
-**Why the lowest eigenvalue.** The ground-state problem is central across three settings. In *physics*, $E_0$ is the energy of matter at zero temperature and $\ket{0}$ encodes its phase (magnet, superconductor, spin liquid). In *optimisation*, a combinatorial problem (MaxCut, XORSAT, any Ising model) is encoded so that a classical cost is the energy of a diagonal Hamiltonian; the lowest-energy state is the optimal assignment, so "ground state" and "optimal solution" coincide. In *numerical linear algebra and machine learning*, extremal eigenpairs are the content of principal component analysis, spectral clustering, and graph methods, as Part 2 demonstrated.
+**Why the lowest eigenvalue.** The ground-state problem is central across three settings. In *physics*, $E_0$ is the energy of matter at zero temperature and $\ket{E_0}$ encodes its phase (magnet, superconductor, spin liquid). In *optimisation*, a combinatorial problem (MaxCut, XORSAT, any Ising model) is encoded so that a classical cost is the energy of a diagonal Hamiltonian; the lowest-energy state is the optimal assignment, so "ground state" and "optimal solution" coincide. In *numerical linear algebra and machine learning*, extremal eigenpairs are the content of principal component analysis, spectral clustering, and graph methods, as Part 2 demonstrated.
 
-**Why it is hard.** For a system of $N$ two-level parts (qubits, spins), the state space is $\mathbb{C}^{2^N}$ and $H$ is a $2^N \times 2^N$ matrix. Dense diagonalisation costs on the order of $(2^N)^3$ operations and $(2^N)^2$ memory, both exponential in $N$. At $N = 20$ the dimension is about $10^6$; at $N = 50$ the matrix cannot be stored, let alone factored.
+**Why it is hard.** For a system of $N$ two-level parts (spins, or sites), the state space is $\mathbb{C}^{2^N}$ and $H$ is a $2^N \times 2^N$ matrix. Dense diagonalisation costs on the order of $(2^N)^3$ operations and $(2^N)^2$ memory, both exponential in $N$. At $N = 20$ the dimension is about $10^6$; at $N = 50$ the matrix cannot be stored, let alone factored.
 
-**What rescues it: structure.** Physical Hamiltonians are *sparse and local*: $H$ is a sum of a polynomial number of terms, each acting on a few qubits, so the matrix-vector product $H\ket{v}$ can be computed without ever forming the dense matrix. Every method in the next section needs only this product. That is the dividing line: exact dense methods are exponential and general, while iterative methods are cheap but return only part of the spectrum, typically the extremes. The state vector itself still has $2^N$ entries, and that memory wall, near $N \approx 50$ on a single classical node, is what later motivates the quantum methods.
+**What rescues it: structure.** Physical Hamiltonians are *sparse and local*: $H$ is a sum of a polynomial number of terms, each acting on only a few sites, so the matrix-vector product $H\ket{v}$ can be computed without ever forming the dense matrix. Every method in the next section needs only this product. That is the dividing line: exact dense methods are exponential and general, while iterative methods are cheap but return only part of the spectrum, typically the extremes. The state vector itself still has $2^N$ entries, and that memory wall, near $N \approx 50$ on a single classical node, is what later motivates the quantum methods.
 
 ## Classical eigensolvers
 
@@ -144,7 +144,7 @@ $$e^{-H\tau} = \sum_n e^{-E_n\tau}\ket{n}\bra{n},$$
 
 the same stretch operator with a real exponent. Each eigencomponent is damped by $e^{-E_n\tau}$, so the *lowest* eigenvalue is damped the least and, after renormalising, takes over:
 
-$$\lvert\psi(\tau)\rangle = \frac{e^{-H\tau}\lvert\psi_0\rangle}{\lVert e^{-H\tau}\lvert\psi_0\rangle\rVert} \;\xrightarrow[\ \tau\to\infty\ ]{}\; \lvert 0\rangle, \qquad \text{provided } \langle 0 | \psi_0 \rangle \ne 0.$$
+$$\lvert\psi(\tau)\rangle = \frac{e^{-H\tau}\lvert\psi_0\rangle}{\lVert e^{-H\tau}\lvert\psi_0\rangle\rVert} \;\xrightarrow[\ \tau\to\infty\ ]{}\; \lvert E_0\rangle, \qquad \text{provided } \langle E_0 | \psi_0 \rangle \ne 0.$$
 
 This is power iteration again, now continuous and aimed at the ground state: where power iteration applied a growing *power* $H^k$ to reach the dominant eigenvector, imaginary time applies a growing *exponential* $e^{-H\tau}$ to reach the lowest. The two are one idea, the $i$-free stretch, discrete and continuous.
 
