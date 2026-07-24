@@ -26,7 +26,7 @@ social:
 
 ## From stretch to rotation
 
-Part 3's methods all applied functions of $H$ with real exponents, $H^k$, $e^{-H\tau}$, which stretch the spectrum and amplify an extremal eigenvector. Every one of them stores the full $2^N$-dimensional state vector, and every one hits the memory wall near $N \approx 50$. A quantum computer represents that state in $N$ qubits, but its native operation is unitary evolution, rotation, not stretch. The tool is the propagator $e^{-iHt}$, and the $i$ is what makes it unitary.
+Part 3's methods all applied functions of $H$ with real exponents, $H^k$, $e^{-H\tau}$, which stretch the spectrum and amplify an extremal eigenvector. Every one of them stores the full $2^N$-dimensional state vector, and every one hits the memory wall near $N \approx 50$. A quantum computer represents that state in $N$ qubits, each a physically realised two-level system, but its native operation is unitary evolution, rotation, not stretch. The tool is the propagator $e^{-iHt}$, and the $i$ is what makes it unitary.
 
 ## Real-time evolution and quantum phase estimation
 
@@ -36,11 +36,11 @@ $$e^{-iHt}\ket{n} = e^{-iE_n t}\ket{n}.$$
 
 *Quantum phase estimation* (QPE)[^kitaev1995][^nielsenchuang] is the circuit that reads that eigenphase, and hence the eigenvalue $E_n$, out of the state.
 
-**The mechanism.** An ancilla register of $m$ qubits is placed in uniform superposition and used to apply *controlled* evolutions $e^{-iH\,2^j t_0}$ for $j = 0, 1, \dots, m-1$. Acting on an eigenstate $\ket{n}$, these imprint the phase $E_n$ across the register in binary; an inverse quantum Fourier transform turns that imprinted phase into a number, read off by measuring the ancillas.
+**The mechanism.** An *ancilla* register of $m$ qubits — extra qubits used only to read out the phase — is placed in uniform superposition and used to apply *controlled* evolutions $e^{-iH\,2^j t_0}$ for $j = 0, 1, \dots, m-1$. Acting on an eigenstate $\ket{n}$, these imprint the phase $E_n$ across the register in binary; an inverse quantum Fourier transform turns that imprinted phase into a number, read off by measuring the ancillas.
 
 ![Quantum phase estimation, schematically. Ancillas in superposition apply controlled powers of the propagator to an eigenstate, imprinting its eigenphase across the register; an inverse quantum Fourier transform converts the imprinted phase into a measured estimate of the eigenvalue.](lafp02-qpe.png)
 
-**Precision and cost.** With $m$ ancilla bits the phase is resolved to about $2^{-m}$, and the total evolution time scales as $1/\varepsilon$ for precision $\varepsilon$. This Heisenberg-limited scaling is quadratically better in time than estimating an energy by averaging measurements. That is the ideal statement: QPE needs long, coherent, controlled evolution and an inverse Fourier transform, which places it in the fault-tolerant era. It is not a near-term method.
+**Precision and cost.** With $m$ ancilla bits the phase is resolved to about $2^{-m}$, and the total evolution time scales as $1/\varepsilon$ for precision $\varepsilon$. This *Heisenberg-limited* scaling — the best precision-per-unit-evolution-time any quantum strategy allows — is quadratically better in time than estimating an energy by averaging measurements. That is the ideal statement: QPE needs long, coherent, controlled evolution and an inverse Fourier transform, which places it in the fault-tolerant era. It is not a near-term method.
 
 **The input problem.** QPE needs an eigenstate to read. Fed a general state $\ket{\psi} = \sum_n c_n \ket{n}$, it returns the eigenvalue $E_n$ with probability $|c_n|^2$, projecting the state onto $\ket{n}$ as it does so. To obtain the *ground* energy one therefore needs a trial state with appreciable overlap $|c_0|^2$ with the ground state, which is itself the state-preparation problem the other methods address.
 
